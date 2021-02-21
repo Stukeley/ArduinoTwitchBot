@@ -11,21 +11,21 @@
 
 	<StackPanel>
 
-		<Button x:Name="SettingsPageButton" Width="100" Margin="20" Padding="0" Click="SettingsPageButton_Click" ToolTip="Click here to set up the bot.">
+		<Button x:Name="SettingsPageButton" Width="100" Height="40" Margin="20" Padding="0" Click="SettingsPageButton_Click" ToolTip="Click here to set up the bot." FontSize="18">
 			<StackPanel Orientation="Horizontal">
-				<materialDesign:PackIcon Kind="Gear" VerticalAlignment="Center"/>
+				<materialDesign:PackIcon Kind="Gear" Width="20" Height="20" VerticalAlignment="Center"/>
 				<TextBlock Text="Settings" VerticalAlignment="Center" Margin="2,0,0,0"/>
 			</StackPanel>
 		</Button>
 
 		<StackPanel x:Name="FollowAlertPanel" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
-			<CheckBox x:Name="FollowAlertCheckbox" IsThreeState="False" ToolTip="Should follower events be announced?">
-				<TextBlock Text="Follow alert" Margin="0,-2,0,0"/>
+			<CheckBox x:Name="FollowAlertCheckbox" IsThreeState="False" ToolTip="Should follower events be announced?" FontSize="18">
+				<TextBlock Text="Follow alert" Margin="0,-2,10,0"/>
 			</CheckBox>
 
-			<TextBox x:Name="FollowAlertSignalBox" Width="80" Margin="20,0,0,0" materialDesign:HintAssist.Hint="VALUE" ToolTip="Enter a value that will be sent through the Serial Port."/>
+			<TextBox x:Name="FollowAlertSignalBox" Width="80" Margin="20,0,0,0" materialDesign:HintAssist.Hint="Value" ToolTip="Enter a value that will be sent through the Serial Port." FontSize="18"/>
 
-			<ComboBox x:Name="FollowSignalTypeBox" Width="50" Margin="10,0,0,0" ToolTip="Should the given value be interpreted as an int, or a string?">
+			<ComboBox x:Name="FollowSignalTypeBox" Width="80" Margin="10,0,0,0" ToolTip="Should the given value be interpreted as an int, or a string?" FontSize="18">
 				<!-- Dynamically generated values -->
 			</ComboBox>
 
@@ -33,12 +33,12 @@
 
 		<StackPanel x:Name="SubAlertPanel" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
 			<CheckBox x:Name="SubAlertCheckbox" IsThreeState="False" ToolTip="Should subscriber events be announced?">
-				<TextBlock Text="Sub alert" Margin="0,-2,0,0"/>
+				<TextBlock Text="Sub alert" Margin="0,-2,13,0" FontSize="18"/>
 			</CheckBox>
 
-			<TextBox x:Name="SubAlertSignalBox" Width="80" Margin="20,0,0,0" materialDesign:HintAssist.Hint="VALUE"/>
+			<TextBox x:Name="SubAlertSignalBox" Width="80" Margin="40,0,0,0" materialDesign:HintAssist.Hint="Value" ToolTip="Enter a value that will be sent through the Serial Port." FontSize="18"/>
 
-			<ComboBox x:Name="SubSignalTypeBox" Width="50" Margin="10,0,0,0" ToolTip="Should the given value be interpreted as an int, or a string?">
+			<ComboBox x:Name="SubSignalTypeBox" Width="80" Margin="10,0,0,0" ToolTip="Should the given value be interpreted as an int, or a string?" FontSize="18">
 				<!-- Dynamically generated values -->
 			</ComboBox>
 
@@ -46,15 +46,68 @@
 
 		<StackPanel x:Name="BitsAlertPanel" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
 			<CheckBox x:Name="BitsAlertCheckbox" IsThreeState="False" ToolTip="Should bits events be announced?">
-				<TextBlock Text="Bits alert" Margin="0,-2,0,0"/>
+				<TextBlock Text="Bits alert" Margin="0,-2,15,0" FontSize="18"/>
 			</CheckBox>
 
-			<TextBox x:Name="BitsAlertSignalBox" Width="80" Margin="20,0,0,0" materialDesign:HintAssist.Hint="VALUE"/>
+			<TextBox x:Name="BitsAlertSignalBox" Width="80" Margin="40,0,0,0" materialDesign:HintAssist.Hint="Value" ToolTip="Enter a value that will be sent through the Serial Port." FontSize="18"/>
 
-			<ComboBox x:Name="BitsSignalTypeBox" Width="50" Margin="10,0,0,0" ToolTip="Should the given value be interpreted as an int, or a string?">
+			<ComboBox x:Name="BitsSignalTypeBox" Width="80" Margin="10,0,0,0" ToolTip="Should the given value be interpreted as an int, or a string?" FontSize="18">
 				<!-- Dynamically generated values -->
 			</ComboBox>
 
 		</StackPanel>
+
+		<StackPanel x:Name="RaidAlertPanel" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+			<CheckBox x:Name="RaidAlertCheckbox" IsThreeState="False" ToolTip="Should raid events be announced?">
+				<TextBlock Text="Raid alert" Margin="0,-2,10,0" FontSize="18"/>
+			</CheckBox>
+
+			<TextBox x:Name="RaidAlertSignalBox" Width="80" Margin="40,0,0,0" materialDesign:HintAssist.Hint="Value" ToolTip="Enter a value that will be sent through the Serial Port." FontSize="18"/>
+
+			<ComboBox x:Name="RaidSignalTypeBox" Width="80" Margin="10,0,0,0" ToolTip="Should the given value be interpreted as an int, or a string?" FontSize="18">
+				<!-- Dynamically generated values -->
+			</ComboBox>
+
+		</StackPanel>
+
+		<StackPanel x:Name="HostAlertPanel" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+			<CheckBox x:Name="HostAlertCheckbox" IsThreeState="False" ToolTip="Should host events be announced?">
+				<TextBlock Text="Host alert" Margin="0,-2,8,0" FontSize="18"/>
+			</CheckBox>
+
+			<TextBox x:Name="HostAlertSignalBox" Width="80" Margin="40,0,0,0" materialDesign:HintAssist.Hint="Value" ToolTip="Enter a value that will be sent through the Serial Port." FontSize="18"/>
+
+			<ComboBox x:Name="HostSignalTypeBox" Width="80" Margin="10,0,0,0" ToolTip="Should the given value be interpreted as an int, or a string?" FontSize="18">
+				<!-- Dynamically generated values -->
+			</ComboBox>
+
+		</StackPanel>
+
+		<StackPanel x:Name="EmoteAlertPanel" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+			<CheckBox x:Name="EmoteAlertCheckbox" IsThreeState="False" ToolTip="Should certain emotes in chat be announced?" Margin="20,0,16,0">
+				<TextBlock Margin="0,-2,0,0">
+					<Run Foreground="Black" Text="Emote alert" FontSize="14"/>
+					<Run Foreground="OrangeRed" Text="(beta)" FontSize="14"/>
+				</TextBlock>
+			</CheckBox>
+
+			<TextBox x:Name="EmoteAlertSignalBox" Width="80" Margin="20,0,0,0" materialDesign:HintAssist.Hint="Value" ToolTip="Enter a value that will be sent through the Serial Port." FontSize="18"/>
+
+			<ComboBox x:Name="EmoteSignalTypeBox" Width="80" Margin="10,0,0,0" ToolTip="Should the given value be interpreted as an int, or a string?" FontSize="18">
+				<!-- Dynamically generated values -->
+			</ComboBox>
+
+			<materialDesign:PackIcon x:Name="SetEmoteListButton" Kind="PencilCircleOutline" Width="20" Height="20" Margin="20,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="Purple" ToolTip="Click here to create or edit the list of announced emotes." PreviewMouseUp="SetEmoteListButton_PreviewMouseUp" Cursor="Hand"/>
+
+		</StackPanel>
+
+		<Button x:Name="ConnectButton" Width="100" Height="40" Margin="0,10,0,20" Padding="0" ToolTip="Connect the bot! (make sure that you filled in everything in the Settings page before clicking this)." FontSize="18" Click="ConnectButton_Click">
+			<StackPanel Orientation="Horizontal">
+				<materialDesign:PackIcon Kind="Connection" Width="20" Height="20" VerticalAlignment="Center"/>
+
+				<TextBlock Text="Connect" VerticalAlignment="Center" Margin="2,0,0,0"/>
+			</StackPanel>
+		</Button>
+		
 	</StackPanel>
 </Page>

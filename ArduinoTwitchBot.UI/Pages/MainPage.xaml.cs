@@ -33,5 +33,15 @@ namespace ArduinoTwitchBot.UI.Pages
 		{
 			(Application.Current.MainWindow as MainWindow).PageFrame.Navigate(new SettingsPage());
 		}
+
+		private void ConnectButton_Click(object sender, RoutedEventArgs e)
+		{
+			// Connect the bot.
+		}
+
+		private void SetEmoteListButton_PreviewMouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+		{
+
+		}
 	}
 }
