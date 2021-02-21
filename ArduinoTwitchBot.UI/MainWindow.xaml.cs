@@ -23,5 +23,11 @@ namespace ArduinoTwitchBot.UI
 
 			base.OnClosing(e);
 		}
+
+		private void Window_Loaded(object sender, RoutedEventArgs e)
+		{
+			// Load UserSettings.
+			UserSettings.LoadUserSettings();
+		}
 	}
 }

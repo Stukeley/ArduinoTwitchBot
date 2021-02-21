@@ -18,6 +18,11 @@ namespace ArduinoTwitchBot.UI.Pages
 
 			RefreshPortNames();
 			RefreshSignalTypes();
+
+			// Load data from UserSettings.
+			ApiKeyBox.Password = UserSettings.ApiKey;
+			ChannelNameBox.Text = UserSettings.ChannelName;
+			PortSelectionBox.SelectedItem = UserSettings.PortName;
 		}
 
 		private void RefreshSignalTypes()

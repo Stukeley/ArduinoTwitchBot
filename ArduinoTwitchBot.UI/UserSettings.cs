@@ -1,4 +1,6 @@
-﻿namespace ArduinoTwitchBot.UI
+﻿using System;
+
+namespace ArduinoTwitchBot.UI
 {
 	public static class UserSettings
 	{
@@ -9,10 +11,14 @@
 		// Called upon leaving the app.
 		public static void SaveUserSettings()
 		{
-			// Check if property exists.
-			if (Properties.Settings.Default["PortName"] is null)
+			try
 			{
-				// Create the property.
+				// Check if property exists.
+				Properties.Settings.Default["PortName"] = PortName;
+			}
+			catch (Exception)
+			{
+				// Property does not exist - create it.
 				var property = new System.Configuration.SettingsProperty("PortName")
 				{
 					PropertyType = typeof(string),
@@ -23,12 +29,14 @@
 				Properties.Settings.Default.Save();
 			}
 
-			Properties.Settings.Default["PortName"] = PortName;
-
-			// Check if property exists.
-			if (Properties.Settings.Default["ApiKey"] is null)
+			try
 			{
-				// Create the property.
+				// Check if property exists.
+				Properties.Settings.Default["ApiKey"] = PortName;
+			}
+			catch (Exception)
+			{
+				// Property does not exist - create it.
 				var property = new System.Configuration.SettingsProperty("ApiKey")
 				{
 					PropertyType = typeof(string),
@@ -39,12 +47,14 @@
 				Properties.Settings.Default.Save();
 			}
 
-			Properties.Settings.Default["ApiKey"] = PortName;
-
-			// Check if property exists.
-			if (Properties.Settings.Default["ChannelName"] is null)
+			try
 			{
-				// Create the property.
+				// Check if property exists.
+				Properties.Settings.Default["ChannelName"] = PortName;
+			}
+			catch (Exception)
+			{
+				// Property does not exist - create it.
 				var property = new System.Configuration.SettingsProperty("ChannelName")
 				{
 					PropertyType = typeof(string),
@@ -54,8 +64,24 @@
 				Properties.Settings.Default.Properties.Add(property);
 				Properties.Settings.Default.Save();
 			}
+		}
 
-			Properties.Settings.Default["ChannelName"] = PortName;
+		public static void LoadUserSettings()
+		{
+			try
+			{
+				// Check if properties exist.
+				PortName = Properties.Settings.Default["PortName"].ToString();
+				ApiKey = Properties.Settings.Default["ApiKey"].ToString();
+				ChannelName = Properties.Settings.Default["ChannelName"].ToString();
+			}
+			catch (Exception ex)
+			{
+				// Properties were not found.
+				PortName = "";
+				ApiKey = "";
+				ChannelName = "";
+			}
 		}
 	}
 }

@@ -6,7 +6,7 @@
 		xmlns:local="clr-namespace:ArduinoTwitchBot.UI"
 		xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
 		mc:Ignorable="d" ResizeMode="NoResize" WindowStyle="SingleBorderWindow"
-		Title="Arduino Twitch Bot" Height="450" Width="550" >
+		Title="Arduino Twitch Bot" Height="450" Width="550" Loaded="Window_Loaded">
 	<StackPanel>
 		<Frame x:Name="PageFrame" NavigationUIVisibility="Hidden" Source="/Pages/MainPage.xaml"/>
 	</StackPanel>
