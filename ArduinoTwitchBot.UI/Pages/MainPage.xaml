@@ -1,0 +1,60 @@
+﻿<Page x:Class="ArduinoTwitchBot.UI.Pages.MainPage"
+	  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+	  xmlns:local="clr-namespace:ArduinoTwitchBot.UI.Pages"
+	  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+	  mc:Ignorable="d" 
+	  d:DesignHeight="400" d:DesignWidth="500" Background="White"
+	  Title="MainPage">
+
+	<StackPanel>
+
+		<Button x:Name="SettingsPageButton" Width="100" Margin="20" Padding="0" Click="SettingsPageButton_Click" ToolTip="Click here to set up the bot.">
+			<StackPanel Orientation="Horizontal">
+				<materialDesign:PackIcon Kind="Gear" VerticalAlignment="Center"/>
+				<TextBlock Text="Settings" VerticalAlignment="Center" Margin="2,0,0,0"/>
+			</StackPanel>
+		</Button>
+
+		<StackPanel x:Name="FollowAlertPanel" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+			<CheckBox x:Name="FollowAlertCheckbox" IsThreeState="False" ToolTip="Should follower events be announced?">
+				<TextBlock Text="Follow alert" Margin="0,-2,0,0"/>
+			</CheckBox>
+
+			<TextBox x:Name="FollowAlertSignalBox" Width="80" Margin="20,0,0,0" materialDesign:HintAssist.Hint="VALUE" ToolTip="Enter a value that will be sent through the Serial Port."/>
+
+			<ComboBox x:Name="FollowSignalTypeBox" Width="50" Margin="10,0,0,0" ToolTip="Should the given value be interpreted as an int, or a string?">
+				<!-- Dynamically generated values -->
+			</ComboBox>
+
+		</StackPanel>
+
+		<StackPanel x:Name="SubAlertPanel" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+			<CheckBox x:Name="SubAlertCheckbox" IsThreeState="False" ToolTip="Should subscriber events be announced?">
+				<TextBlock Text="Sub alert" Margin="0,-2,0,0"/>
+			</CheckBox>
+
+			<TextBox x:Name="SubAlertSignalBox" Width="80" Margin="20,0,0,0" materialDesign:HintAssist.Hint="VALUE"/>
+
+			<ComboBox x:Name="SubSignalTypeBox" Width="50" Margin="10,0,0,0" ToolTip="Should the given value be interpreted as an int, or a string?">
+				<!-- Dynamically generated values -->
+			</ComboBox>
+
+		</StackPanel>
+
+		<StackPanel x:Name="BitsAlertPanel" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+			<CheckBox x:Name="BitsAlertCheckbox" IsThreeState="False" ToolTip="Should bits events be announced?">
+				<TextBlock Text="Bits alert" Margin="0,-2,0,0"/>
+			</CheckBox>
+
+			<TextBox x:Name="BitsAlertSignalBox" Width="80" Margin="20,0,0,0" materialDesign:HintAssist.Hint="VALUE"/>
+
+			<ComboBox x:Name="BitsSignalTypeBox" Width="50" Margin="10,0,0,0" ToolTip="Should the given value be interpreted as an int, or a string?">
+				<!-- Dynamically generated values -->
+			</ComboBox>
+
+		</StackPanel>
+	</StackPanel>
+</Page>
