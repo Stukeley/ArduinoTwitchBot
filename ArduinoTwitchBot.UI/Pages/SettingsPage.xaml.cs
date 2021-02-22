@@ -39,6 +39,14 @@ namespace ArduinoTwitchBot.UI.Pages
 			PortSelectionBox.SelectedIndex = 0;
 		}
 
+		public void SaveSettings()
+		{
+			// Save user settings.
+			UserSettings.ApiKey = ShowHideApiKey.Kind == PackIconKind.Eye ? ApiKeyBox.Password : VisibleApiKeyBox.Text;
+			UserSettings.ChannelName = ChannelNameBox.Text;
+			UserSettings.PortName = PortSelectionBox.SelectedValue.ToString();
+		}
+
 		private void ConnectionTestButton_Click(object sender, RoutedEventArgs e)
 		{
 			var text = ConnectionTestBox.Text.Trim();
@@ -101,10 +109,7 @@ namespace ArduinoTwitchBot.UI.Pages
 
 		private void MainPageButton_Click(object sender, RoutedEventArgs e)
 		{
-			// Save user settings.
-			UserSettings.ApiKey = ShowHideApiKey.Kind == PackIconKind.Eye ? ApiKeyBox.Password : VisibleApiKeyBox.Text;
-			UserSettings.ChannelName = ChannelNameBox.Text;
-			UserSettings.PortName = PortSelectionBox.SelectedValue.ToString();
+			SaveSettings();
 
 			(Application.Current.MainWindow as MainWindow).PageFrame.Navigate(new MainPage());
 		}

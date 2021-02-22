@@ -16,9 +16,11 @@
 			return alert.IsActive == false;
 		}
 
-		public Alert(bool isActive, string signal = null, SignalType signalType = SignalType.String)
+		public Alert(bool isActive, string signal = "", SignalType signalType = SignalType.String)
 		{
 			IsActive = isActive;
+			Signal = signal;
+			SignalType = signalType;
 		}
 	}
 }

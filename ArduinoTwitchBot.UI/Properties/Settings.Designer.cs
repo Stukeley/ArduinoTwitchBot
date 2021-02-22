@@ -25,12 +25,253 @@ namespace ArduinoTwitchBot.UI.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.Collections.Specialized.StringCollection Alerts {
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string PortName {
             get {
-                return ((global::System.Collections.Specialized.StringCollection)(this["Alerts"]));
+                return ((string)(this["PortName"]));
             }
             set {
-                this["Alerts"] = value;
+                this["PortName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ApiKey {
+            get {
+                return ((string)(this["ApiKey"]));
+            }
+            set {
+                this["ApiKey"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ChannelName {
+            get {
+                return ((string)(this["ChannelName"]));
+            }
+            set {
+                this["ChannelName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool FollowAlert {
+            get {
+                return ((bool)(this["FollowAlert"]));
+            }
+            set {
+                this["FollowAlert"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string FollowAlertValue {
+            get {
+                return ((string)(this["FollowAlertValue"]));
+            }
+            set {
+                this["FollowAlertValue"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string FollowAlertType {
+            get {
+                return ((string)(this["FollowAlertType"]));
+            }
+            set {
+                this["FollowAlertType"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SubAlert {
+            get {
+                return ((bool)(this["SubAlert"]));
+            }
+            set {
+                this["SubAlert"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SubAlertValue {
+            get {
+                return ((string)(this["SubAlertValue"]));
+            }
+            set {
+                this["SubAlertValue"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SubAlertType {
+            get {
+                return ((string)(this["SubAlertType"]));
+            }
+            set {
+                this["SubAlertType"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool BitsAlert {
+            get {
+                return ((bool)(this["BitsAlert"]));
+            }
+            set {
+                this["BitsAlert"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string BitsAlertValue {
+            get {
+                return ((string)(this["BitsAlertValue"]));
+            }
+            set {
+                this["BitsAlertValue"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string BitsAlertType {
+            get {
+                return ((string)(this["BitsAlertType"]));
+            }
+            set {
+                this["BitsAlertType"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool RaidAlert {
+            get {
+                return ((bool)(this["RaidAlert"]));
+            }
+            set {
+                this["RaidAlert"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string RaidAlertValue {
+            get {
+                return ((string)(this["RaidAlertValue"]));
+            }
+            set {
+                this["RaidAlertValue"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string RaidAlertType {
+            get {
+                return ((string)(this["RaidAlertType"]));
+            }
+            set {
+                this["RaidAlertType"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool HostAlert {
+            get {
+                return ((bool)(this["HostAlert"]));
+            }
+            set {
+                this["HostAlert"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string HostAlertValue {
+            get {
+                return ((string)(this["HostAlertValue"]));
+            }
+            set {
+                this["HostAlertValue"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string HostAlertType {
+            get {
+                return ((string)(this["HostAlertType"]));
+            }
+            set {
+                this["HostAlertType"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool EmoteAlert {
+            get {
+                return ((bool)(this["EmoteAlert"]));
+            }
+            set {
+                this["EmoteAlert"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string EmoteAlertValue {
+            get {
+                return ((string)(this["EmoteAlertValue"]));
+            }
+            set {
+                this["EmoteAlertValue"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string EmoteAlertType {
+            get {
+                return ((string)(this["EmoteAlertType"]));
+            }
+            set {
+                this["EmoteAlertType"] = value;
             }
         }
     }

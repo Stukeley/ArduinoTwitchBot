@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using ArduinoTwitchBot.UI.Pages;
+using System.ComponentModel;
 using System.Windows;
 
 namespace ArduinoTwitchBot.UI
@@ -7,7 +8,9 @@ namespace ArduinoTwitchBot.UI
 	// 3. Different font
 	// 6. zamknięcie aplikacji minimalizuje do system tray (niemożliwe)
 	// 11. testy
-	// 12. zapisywanie w usersettings też pozostałych pól (checkboxów, sygnałów)
+	// 13. wczytywanie settings
+	// 14. json zamiast settings
+	// 15. settingsy mogą być overwritowane przez VS - sprawdzić release
 	public partial class MainWindow : Window
 	{
 		public MainWindow()
@@ -17,6 +20,16 @@ namespace ArduinoTwitchBot.UI
 
 		protected override void OnClosing(CancelEventArgs e)
 		{
+			// Check what the current page is, and save its contents.
+			if (this.PageFrame.Content is MainPage mainPage)
+			{
+				mainPage.SaveAlerts();
+			}
+			else if (this.PageFrame.Content is SettingsPage settingsPage)
+			{
+				settingsPage.SaveSettings();
+			}
+
 			// Save user settings before quitting.
 			UserSettings.SaveUserSettings();
 
@@ -25,6 +38,9 @@ namespace ArduinoTwitchBot.UI
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
+			// Create UserSettings if they don't exist.
+			//UserSettings.SeedProperties();
+
 			// Load UserSettings.
 			UserSettings.LoadUserSettings();
 		}

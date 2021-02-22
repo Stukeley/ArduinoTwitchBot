@@ -3,10 +3,6 @@ using System.IO.Ports;
 
 namespace ArduinoTwitchBot.Code
 {
-	public enum SignalType
-	{
-		String = 0, Int, Byte
-	}
 	public static class SerialPortHelper
 	{
 		private const int BAUD_RATE = 9600;

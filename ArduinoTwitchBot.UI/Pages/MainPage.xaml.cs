@@ -13,6 +13,36 @@ namespace ArduinoTwitchBot.UI.Pages
 			InitializeComponent();
 
 			RefreshSignalTypes();
+
+			var alerts = UserSettings.Alerts;
+
+			// Load data from UserSettings.
+			if (alerts.Length > 0)
+			{
+				FollowAlertCheckbox.IsChecked = alerts[0].IsActive;
+				FollowAlertSignalBox.Text = alerts[0].Signal;
+				FollowSignalTypeBox.SelectedItem = alerts[0].SignalType;
+
+				SubAlertCheckbox.IsChecked = alerts[1].IsActive;
+				SubAlertSignalBox.Text = alerts[1].Signal;
+				SubSignalTypeBox.SelectedItem = alerts[1].SignalType;
+
+				BitsAlertCheckbox.IsChecked = alerts[2].IsActive;
+				BitsAlertSignalBox.Text = alerts[2].Signal;
+				BitsSignalTypeBox.SelectedItem = alerts[2].SignalType;
+
+				RaidAlertCheckbox.IsChecked = alerts[3].IsActive;
+				RaidAlertSignalBox.Text = alerts[3].Signal;
+				RaidSignalTypeBox.SelectedItem = alerts[3].SignalType;
+
+				HostAlertCheckbox.IsChecked = alerts[4].IsActive;
+				HostAlertSignalBox.Text = alerts[4].Signal;
+				HostSignalTypeBox.SelectedItem = alerts[4].SignalType;
+
+				EmoteAlertCheckbox.IsChecked = alerts[5].IsActive;
+				EmoteAlertSignalBox.Text = alerts[5].Signal;
+				EmoteSignalTypeBox.SelectedItem = alerts[5].SignalType;
+			}
 		}
 
 		private void RefreshSignalTypes()
@@ -50,12 +80,7 @@ namespace ArduinoTwitchBot.UI.Pages
 			return true;
 		}
 
-		private void SettingsPageButton_Click(object sender, RoutedEventArgs e)
-		{
-			(Application.Current.MainWindow as MainWindow).PageFrame.Navigate(new SettingsPage());
-		}
-
-		private void ConnectButton_Click(object sender, RoutedEventArgs e)
+		public void SaveAlerts()
 		{
 			// Create an array to keep track of Alerts easier.
 			var alerts = new Alert[6];
@@ -117,6 +142,21 @@ namespace ArduinoTwitchBot.UI.Pages
 
 			// Save user settings.
 			UserSettings.Alerts = alerts;
+		}
+
+		private void SettingsPageButton_Click(object sender, RoutedEventArgs e)
+		{
+			SaveAlerts();
+
+			(Application.Current.MainWindow as MainWindow).PageFrame.Navigate(new SettingsPage());
+		}
+
+		private void ConnectButton_Click(object sender, RoutedEventArgs e)
+		{
+			// Save alerts to UserSettings.
+			SaveAlerts();
+
+			var alerts = UserSettings.Alerts;
 
 			// Connect the bot.
 			TwitchBot.Instance.Connect("", "", alerts[0], alerts[1], alerts[2], alerts[3], alerts[4], alerts[5]);
@@ -124,6 +164,8 @@ namespace ArduinoTwitchBot.UI.Pages
 
 		private void SetEmoteListButton_PreviewMouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
 		{
+			SaveAlerts();
+
 			(Application.Current.MainWindow as MainWindow).PageFrame.Navigate(new EmotesPage());
 		}
 	}
