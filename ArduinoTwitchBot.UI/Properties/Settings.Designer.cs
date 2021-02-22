@@ -22,5 +22,16 @@ namespace ArduinoTwitchBot.UI.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection Alerts {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["Alerts"]));
+            }
+            set {
+                this["Alerts"] = value;
+            }
+        }
     }
 }

@@ -84,7 +84,7 @@
 		</StackPanel>
 
 		<StackPanel x:Name="EmoteAlertPanel" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
-			<CheckBox x:Name="EmoteAlertCheckbox" IsThreeState="False" ToolTip="Should certain emotes in chat be announced?" Margin="20,0,16,0">
+			<CheckBox x:Name="EmoteAlertCheckbox" IsThreeState="False" ToolTip="Should certain emotes in chat be announced?" Margin="20,0,16,0" IsEnabled="False">
 				<TextBlock Margin="0,-2,0,0">
 					<Run Foreground="Black" Text="Emote alert" FontSize="14"/>
 					<Run Foreground="OrangeRed" Text="(beta)" FontSize="14"/>

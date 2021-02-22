@@ -31,7 +31,7 @@ namespace ArduinoTwitchBot.Code
 
 		// Experimental client for listening to chat messages
 
-		public async void Connect(string apiKey, string channelName, bool followerAlert = false, bool subAlert = false, bool bitsAlert = false, bool raidAlert = false, bool hostAlert = false, bool emoteAlert = false)
+		public async void Connect(string apiKey, string channelName, Alert followerAlert = null, Alert subAlert = null, Alert bitsAlert = null, Alert raidAlert = null, Alert hostAlert = null, Alert emoteAlert = null)
 		{
 			_client = new TwitchPubSub();
 

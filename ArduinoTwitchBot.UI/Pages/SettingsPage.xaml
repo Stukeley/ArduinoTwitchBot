@@ -55,7 +55,7 @@
 				<!-- Dynamically generated values -->
 			</ComboBox>
 
-			<Button x:Name="ConnectionTestButton" Content="Test" ToolTip="Test if the connection works." Click="ConnectionTestButton_Click" Margin="10,0,0,0" VerticalAlignment="Center" Width="80"/>
+			<Button x:Name="ConnectionTestButton" Content="Test" ToolTip="Test if the connection works." Click="ConnectionTestButton_Click" Margin="10,0,0,0" VerticalAlignment="Center" Width="80" Background="DarkRed"/>
 		</StackPanel>
 
 	</StackPanel>

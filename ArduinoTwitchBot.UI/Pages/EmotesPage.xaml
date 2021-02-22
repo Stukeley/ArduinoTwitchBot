@@ -1,0 +1,27 @@
+﻿<Page x:Class="ArduinoTwitchBot.UI.Pages.EmotesPage"
+	  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+	  xmlns:local="clr-namespace:ArduinoTwitchBot.UI.Pages"
+	  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+	  mc:Ignorable="d"  Background="White"
+	  d:DesignHeight="400" d:DesignWidth="500"
+	  Title="EmotesPage">
+
+	<StackPanel>
+		
+		<Button x:Name="MainPageButton" Width="100" Height="40" Margin="20" Padding="0" Click="MainPageButton_Click" ToolTip="Click here to go back." FontSize="18">
+			<StackPanel Orientation="Horizontal">
+				<materialDesign:PackIcon Kind="Home" Width="20" Height="20" VerticalAlignment="Center"/>
+				<TextBlock Text="Home" VerticalAlignment="Center" Margin="2,0,0,0"/>
+			</StackPanel>
+		</Button>
+
+		<Border BorderThickness="1" BorderBrush="Gray" Width="450" Height="300" ToolTip="Enter emote names, one in each line. A signal will be sent if any of these emotes is used in chat.">
+			<RichTextBox x:Name="EmotesTextBox" AcceptsReturn="True" FontSize="16">
+
+			</RichTextBox>
+		</Border>
+	</StackPanel>
+</Page>
