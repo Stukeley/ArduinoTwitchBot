@@ -23,6 +23,9 @@ namespace ArduinoTwitchBot.Code
 		}
 		#endregion
 
+		public string ClientId { get; set; }
+		public string AccessToken { get; set; }
+
 		// API to get Channel Id from username.
 		private TwitchAPI _api;
 
@@ -73,7 +76,7 @@ namespace ArduinoTwitchBot.Code
 			}
 		}
 
-		private async Task<string> GetChannelId(string channelName)
+		public async Task<string> GetChannelId(string channelName)
 		{
 			string channelId = "";
 
@@ -81,8 +84,8 @@ namespace ArduinoTwitchBot.Code
 			{
 				_api = new TwitchAPI();
 
-				_api.Settings.ClientId = "";
-				_api.Settings.AccessToken = "";
+				_api.Settings.ClientId = ClientId;
+				_api.Settings.AccessToken = AccessToken;
 
 				var users = await _api.Helix.Users.GetUsersAsync(logins: new List<string>() { channelName });
 

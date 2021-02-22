@@ -38,12 +38,12 @@ namespace ArduinoTwitchBot.UI.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string ApiKey {
+        public string ClientId {
             get {
-                return ((string)(this["ApiKey"]));
+                return ((string)(this["ClientId"]));
             }
             set {
-                this["ApiKey"] = value;
+                this["ClientId"] = value;
             }
         }
         
@@ -272,6 +272,18 @@ namespace ArduinoTwitchBot.UI.Properties {
             }
             set {
                 this["EmoteAlertType"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string AccessToken {
+            get {
+                return ((string)(this["AccessToken"]));
+            }
+            set {
+                this["AccessToken"] = value;
             }
         }
     }

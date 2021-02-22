@@ -8,7 +8,8 @@ namespace ArduinoTwitchBot.UI
 		#region General properties
 
 		public static string PortName { get; set; }
-		public static string ApiKey { get; set; }
+		public static string ClientId { get; set; }
+		public static string AccessToken { get; set; }
 		public static string ChannelName { get; set; }
 		public static Alert[] Alerts { get; set; }
 
@@ -49,7 +50,8 @@ namespace ArduinoTwitchBot.UI
 			{
 				// Save user settings.
 				Properties.Settings.Default["PortName"] = PortName;
-				Properties.Settings.Default["ApiKey"] = ApiKey;
+				Properties.Settings.Default["ClientId"] = ClientId;
+				Properties.Settings.Default["AccessToken"] = AccessToken;
 				Properties.Settings.Default["ChannelName"] = ChannelName;
 
 				// Save alert settings.
@@ -91,7 +93,8 @@ namespace ArduinoTwitchBot.UI
 			{
 				// Check if properties exist.
 				PortName = Properties.Settings.Default["PortName"].ToString();
-				ApiKey = Properties.Settings.Default["ApiKey"].ToString();
+				ClientId = Properties.Settings.Default["ClientId"].ToString();
+				AccessToken = Properties.Settings.Default["AccessToken"].ToString();
 				ChannelName = Properties.Settings.Default["ChannelName"].ToString();
 
 				// Load alert settings.
@@ -114,7 +117,8 @@ namespace ArduinoTwitchBot.UI
 			{
 				// Some (or all) properties were not found.
 				PortName = PortName is null ? "" : PortName;
-				ApiKey = ApiKey is null ? "" : ApiKey;
+				ClientId = ClientId is null ? "" : ClientId;
+				AccessToken = AccessToken is null ? "" : AccessToken;
 				ChannelName = ChannelName is null ? "" : ChannelName;
 				Alerts = Alerts is null ? new Alert[0] : Alerts;
 			}

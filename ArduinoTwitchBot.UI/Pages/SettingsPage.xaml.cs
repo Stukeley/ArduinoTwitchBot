@@ -20,7 +20,8 @@ namespace ArduinoTwitchBot.UI.Pages
 			RefreshSignalTypes();
 
 			// Load data from UserSettings.
-			ApiKeyBox.Password = UserSettings.ApiKey;
+			ClientIdBox.Password = UserSettings.ClientId;
+			AccessTokenBox.Password = UserSettings.AccessToken;
 			ChannelNameBox.Text = UserSettings.ChannelName;
 			PortSelectionBox.SelectedItem = UserSettings.PortName;
 		}
@@ -42,7 +43,8 @@ namespace ArduinoTwitchBot.UI.Pages
 		public void SaveSettings()
 		{
 			// Save user settings.
-			UserSettings.ApiKey = ShowHideApiKey.Kind == PackIconKind.Eye ? ApiKeyBox.Password : VisibleApiKeyBox.Text;
+			UserSettings.ClientId = ShowHideClientId.Kind == PackIconKind.Eye ? ClientIdBox.Password : VisibleClientIdBox.Text;
+			UserSettings.AccessToken = ShowHideAccessToken.Kind == PackIconKind.Eye ? AccessTokenBox.Password : VisibleAccessTokenBox.Text;
 			UserSettings.ChannelName = ChannelNameBox.Text;
 			UserSettings.PortName = PortSelectionBox.SelectedValue.ToString();
 		}
@@ -67,36 +69,43 @@ namespace ArduinoTwitchBot.UI.Pages
 			}
 		}
 
-		private void ShowHideApiKey_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-		{
-			if (ShowHideApiKey.Kind == PackIconKind.Eye)
-			{
-				ShowHideApiKey.Kind = PackIconKind.EyeOff;
-
-				var enteredApiKey = ApiKeyBox.Password;
-
-				VisibleApiKeyBox.Visibility = Visibility.Visible;
-				VisibleApiKeyBox.Text = enteredApiKey;
-				ApiKeyBox.Visibility = Visibility.Collapsed;
-			}
-			else
-			{
-				ShowHideApiKey.Kind = PackIconKind.Eye;
-
-				var enteredPassword = VisibleApiKeyBox.Text;
-
-				ApiKeyBox.Visibility = Visibility.Visible;
-				ApiKeyBox.Password = enteredPassword;
-				VisibleApiKeyBox.Visibility = Visibility.Collapsed;
-			}
-		}
-
 		private void RefreshPortNamesButton_Click(object sender, RoutedEventArgs e)
 		{
 			RefreshPortNames();
 		}
 
-		private void ApiKeyHelpButton_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+		private void MainPageButton_Click(object sender, RoutedEventArgs e)
+		{
+			SaveSettings();
+
+			(Application.Current.MainWindow as MainWindow).PageFrame.Navigate(new MainPage());
+		}
+
+		private void ShowHideClientId_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+		{
+			if (ShowHideClientId.Kind == PackIconKind.Eye)
+			{
+				ShowHideClientId.Kind = PackIconKind.EyeOff;
+
+				var enteredApiKey = ClientIdBox.Password;
+
+				VisibleClientIdBox.Visibility = Visibility.Visible;
+				VisibleClientIdBox.Text = enteredApiKey;
+				ClientIdBox.Visibility = Visibility.Collapsed;
+			}
+			else
+			{
+				ShowHideClientId.Kind = PackIconKind.Eye;
+
+				var enteredPassword = VisibleClientIdBox.Text;
+
+				ClientIdBox.Visibility = Visibility.Visible;
+				ClientIdBox.Password = enteredPassword;
+				VisibleClientIdBox.Visibility = Visibility.Collapsed;
+			}
+		}
+
+		private void ClientIdHelpButton_PreviewMouseUp(object sender, MouseButtonEventArgs e)
 		{
 			var processInfo = new ProcessStartInfo()
 			{
@@ -107,11 +116,28 @@ namespace ArduinoTwitchBot.UI.Pages
 			Process.Start(processInfo);
 		}
 
-		private void MainPageButton_Click(object sender, RoutedEventArgs e)
+		private void ShowHideAccessToken_PreviewMouseUp(object sender, MouseButtonEventArgs e)
 		{
-			SaveSettings();
+			if (ShowHideAccessToken.Kind == PackIconKind.Eye)
+			{
+				ShowHideAccessToken.Kind = PackIconKind.EyeOff;
 
-			(Application.Current.MainWindow as MainWindow).PageFrame.Navigate(new MainPage());
+				var enteredApiKey = AccessTokenBox.Password;
+
+				VisibleAccessTokenBox.Visibility = Visibility.Visible;
+				VisibleAccessTokenBox.Text = enteredApiKey;
+				AccessTokenBox.Visibility = Visibility.Collapsed;
+			}
+			else
+			{
+				ShowHideAccessToken.Kind = PackIconKind.Eye;
+
+				var enteredPassword = VisibleAccessTokenBox.Text;
+
+				AccessTokenBox.Visibility = Visibility.Visible;
+				AccessTokenBox.Password = enteredPassword;
+				VisibleAccessTokenBox.Visibility = Visibility.Collapsed;
+			}
 		}
 	}
 }

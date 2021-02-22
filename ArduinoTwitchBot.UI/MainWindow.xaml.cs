@@ -35,14 +35,5 @@ namespace ArduinoTwitchBot.UI
 
 			base.OnClosing(e);
 		}
-
-		private void Window_Loaded(object sender, RoutedEventArgs e)
-		{
-			// Create UserSettings if they don't exist.
-			//UserSettings.SeedProperties();
-
-			// Load UserSettings.
-			UserSettings.LoadUserSettings();
-		}
 	}
 }

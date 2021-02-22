@@ -5,7 +5,7 @@
     <Setting Name="PortName" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="ApiKey" Type="System.String" Scope="User">
+    <Setting Name="ClientId" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="ChannelName" Type="System.String" Scope="User">
@@ -63,6 +63,9 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="EmoteAlertType" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="AccessToken" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>

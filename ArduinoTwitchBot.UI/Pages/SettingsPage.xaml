@@ -22,12 +22,18 @@
 
 		<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
 			<Grid>
-				<PasswordBox x:Name="ApiKeyBox" materialDesign:HintAssist.Hint="API key" FontSize="18" Width="200" PasswordChar="•"/>
-				<TextBox x:Name="VisibleApiKeyBox" materialDesign:HintAssist.Hint="API KEY" FontSize="18" Width="200" Visibility="Collapsed"/>
-				<materialDesign:PackIcon x:Name="ShowHideApiKey" Kind="Eye" Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5" Foreground="DarkSlateGray" PreviewMouseUp="ShowHideApiKey_PreviewMouseUp" Cursor="Hand"/>
+				<PasswordBox x:Name="ClientIdBox" materialDesign:HintAssist.Hint="Client Id" FontSize="18" Width="200" PasswordChar="•"/>
+				<TextBox x:Name="VisibleClientIdBox" materialDesign:HintAssist.Hint="Client Id" FontSize="18" Width="200" Visibility="Collapsed"/>
+				<materialDesign:PackIcon x:Name="ShowHideClientId" Kind="Eye" Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5" Foreground="DarkSlateGray" PreviewMouseUp="ShowHideClientId_PreviewMouseUp" Cursor="Hand"/>
 			</Grid>
 
-			<materialDesign:PackIcon x:Name="ApiKeyHelpButton" Kind="QuestionMarkCircle" Foreground="Purple" VerticalAlignment="Center" HorizontalAlignment="Center" Width="30" Height="30" ToolTip="You need to register your bot on Twitch to get an API key. Click here to learn more." PreviewMouseUp="ApiKeyHelpButton_PreviewMouseUp" Margin="5,0,0,0" Cursor="Hand"/>
+			<Grid Margin="20,0,0,0">
+				<PasswordBox x:Name="AccessTokenBox" materialDesign:HintAssist.Hint="Access token" FontSize="18" Width="200" PasswordChar="•"/>
+				<TextBox x:Name="VisibleAccessTokenBox" materialDesign:HintAssist.Hint="Access token" FontSize="18" Width="200" Visibility="Collapsed"/>
+				<materialDesign:PackIcon x:Name="ShowHideAccessToken" Kind="Eye" Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5" Foreground="DarkSlateGray" PreviewMouseUp="ShowHideAccessToken_PreviewMouseUp" Cursor="Hand"/>
+			</Grid>
+
+			<materialDesign:PackIcon x:Name="ClientIdHelpButton" Kind="QuestionMarkCircle" Foreground="Purple" VerticalAlignment="Center" HorizontalAlignment="Center" Width="30" Height="30" ToolTip="You need to register your bot on Twitch to get a Client Id. Click here to learn more." PreviewMouseUp="ClientIdHelpButton_PreviewMouseUp" Margin="5,0,0,0" Cursor="Hand"/>
 		</StackPanel>
 
 		<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
