@@ -7,9 +7,7 @@ namespace ArduinoTwitchBot.UI
 {
 	// TODO:
 	// 3. Different font
-	// 6. zamknięcie aplikacji minimalizuje do system tray (niemożliwe)
 	// 15. settingsy mogą być overwritowane przez VS - sprawdzić release
-	// 16. ważne - trzeba mieć access token z kanału do którego dołączamy!
 	public partial class MainWindow : Window
 	{
 		public MainWindow()

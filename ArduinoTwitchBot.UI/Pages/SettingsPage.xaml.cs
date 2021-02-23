@@ -43,9 +43,9 @@ namespace ArduinoTwitchBot.UI.Pages
 		public void SaveSettings()
 		{
 			// Save user settings.
-			UserSettings.ClientId = ShowHideClientId.Kind == PackIconKind.Eye ? ClientIdBox.Password : VisibleClientIdBox.Text;
-			UserSettings.AccessToken = ShowHideAccessToken.Kind == PackIconKind.Eye ? AccessTokenBox.Password : VisibleAccessTokenBox.Text;
-			UserSettings.ChannelName = ChannelNameBox.Text;
+			UserSettings.ClientId = ShowHideClientId.Kind == PackIconKind.Eye ? ClientIdBox.Password.Trim() : VisibleClientIdBox.Text.Trim();
+			UserSettings.AccessToken = ShowHideAccessToken.Kind == PackIconKind.Eye ? AccessTokenBox.Password.Trim() : VisibleAccessTokenBox.Text.Trim();
+			UserSettings.ChannelName = ChannelNameBox.Text.Trim();
 			UserSettings.PortName = PortSelectionBox.SelectedValue.ToString();
 		}
 
@@ -109,7 +109,7 @@ namespace ArduinoTwitchBot.UI.Pages
 		{
 			var processInfo = new ProcessStartInfo()
 			{
-				FileName = "https://dev.twitch.tv/docs/authentication#registration",
+				FileName = "https://github.com/Stukeley/ArduinoTwitchBot#setup",
 				UseShellExecute = true
 			};
 
