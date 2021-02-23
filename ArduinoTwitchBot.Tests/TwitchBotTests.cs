@@ -19,7 +19,7 @@ namespace ArduinoTwitchBot.Tests
 		}
 
 		[Test]
-		public void GetChannelId_ValidResponse()
+		public void GetChannelId_ValidResponse_ApiNotNull()
 		{
 			var channelName = "Stukeleyak";
 			var result = _twitchBot.GetChannelId(channelName).Result;
@@ -28,6 +28,37 @@ namespace ArduinoTwitchBot.Tests
 			var expected = "81452434";
 
 			Assert.AreEqual(expected, result);
+			Assert.IsNotNull(_twitchBot._api);
+		}
+
+		[Test]
+		public void Connect_NoExceptionThrown_ClientNotNull()
+		{
+			var channelName = "Stukeleyak";
+			var portName = "COM3";
+
+			var alerts = new Alert[6]
+			{
+				new Alert(true, "Follow"),
+				new Alert(true, "Sub"),
+				new Alert(true, "Bits"),
+				new Alert(false),
+				new Alert(true, "Raid"),
+				new Alert(false)
+			};
+
+			Assert.DoesNotThrow(() => _twitchBot.Connect(Properties.Resources.ClientId, Properties.Resources.AccessToken, channelName, portName, alerts));
+			Assert.IsNotNull(_twitchBot.ClientId);
+			Assert.IsNotNull(_twitchBot.AccessToken);
+			Assert.IsNotNull(_twitchBot.PortName);
+			Assert.IsNotNull(_twitchBot.Alerts);
+			Assert.IsNotNull(_twitchBot._client);
+		}
+
+		[Test]
+		public void Disconnect_NoExceptionThrown()
+		{
+			Assert.DoesNotThrow(() => _twitchBot.Disconnect());
 		}
 	}
 }

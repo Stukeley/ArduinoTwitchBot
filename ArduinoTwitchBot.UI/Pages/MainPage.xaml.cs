@@ -159,7 +159,7 @@ namespace ArduinoTwitchBot.UI.Pages
 			var alerts = UserSettings.Alerts;
 
 			// Connect the bot.
-			TwitchBot.Instance.Connect("", "", alerts[0], alerts[1], alerts[2], alerts[3], alerts[4], alerts[5]);
+			TwitchBot.Instance.Connect(UserSettings.ClientId, UserSettings.AccessToken, UserSettings.ChannelName, UserSettings.PortName, alerts);
 		}
 
 		private void SetEmoteListButton_PreviewMouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
