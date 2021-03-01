@@ -45,6 +45,7 @@ To make this work, you will need an OAUTH Access Token from Twitch - an explanat
 Let me know if you need more help!
 
 ## <a name="design"></a>Design
+![Settings](https://i.imgur.com/KXXnSQ0.png) ![Alerts](https://i.imgur.com/PxSt6aH.png)
 
 ## <a name="sample-schematic"></a>Sample schematic
 A sample schematic along with the code needed on the Arduino side can be found in the **ArduinoTwitchBot.Example** folder.  
@@ -58,3 +59,7 @@ Of course, you can read and interpret the incomming signals however you want. Th
 
 ## <a name="feature-requests"></a>Feature requests
 Have an idea that you would like to see in the app? Feel free to open an issue and I'll try my best to help :)
+
+Current TODO:
+1. Different Font Family
+2. Dark mode
