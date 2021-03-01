@@ -65,19 +65,19 @@ namespace ArduinoTwitchBot.UI
 
 				Properties.Settings.Default["BitsAlert"] = Alerts[2].IsActive;
 				Properties.Settings.Default["BitsAlertValue"] = Alerts[2].Signal;
-				Properties.Settings.Default["BitsAlertType"] = Alerts[2].SignalType;
+				Properties.Settings.Default["BitsAlertType"] = Alerts[2].SignalType.ToString();
 
 				Properties.Settings.Default["RaidAlert"] = Alerts[3].IsActive;
 				Properties.Settings.Default["RaidAlertValue"] = Alerts[3].Signal;
-				Properties.Settings.Default["RaidAlertType"] = Alerts[3].SignalType;
+				Properties.Settings.Default["RaidAlertType"] = Alerts[3].SignalType.ToString();
 
 				Properties.Settings.Default["HostAlert"] = Alerts[4].IsActive;
 				Properties.Settings.Default["HostAlertValue"] = Alerts[4].Signal;
-				Properties.Settings.Default["HostAlertType"] = Alerts[4].SignalType;
+				Properties.Settings.Default["HostAlertType"] = Alerts[4].SignalType.ToString();
 
 				Properties.Settings.Default["EmoteAlert"] = Alerts[5].IsActive;
 				Properties.Settings.Default["EmoteAlertValue"] = Alerts[5].Signal;
-				Properties.Settings.Default["EmoteAlertType"] = Alerts[5].SignalType;
+				Properties.Settings.Default["EmoteAlertType"] = Alerts[5].SignalType.ToString();
 			}
 			catch (Exception ex)
 			{
