@@ -78,12 +78,15 @@ namespace ArduinoTwitchBot.UI
 				Properties.Settings.Default["EmoteAlert"] = Alerts[5].IsActive;
 				Properties.Settings.Default["EmoteAlertValue"] = Alerts[5].Signal;
 				Properties.Settings.Default["EmoteAlertType"] = Alerts[5].SignalType;
-
-				Properties.Settings.Default.Save();
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
-				// TODO
+				throw ex;
+			}
+			finally
+			{
+				// Save whatever got written.
+				Properties.Settings.Default.Save();
 			}
 		}
 

@@ -1,13 +1,15 @@
 ﻿using ArduinoTwitchBot.Code;
 using ArduinoTwitchBot.UI.Pages;
+using System;
 using System.ComponentModel;
 using System.Windows;
 
 namespace ArduinoTwitchBot.UI
 {
 	// TODO:
-	// 3. Different font
-	// 15. settingsy mogą być overwritowane przez VS - sprawdzić release
+	// 1. Different font
+	// 2. settingsy mogą być overwritowane przez VS - sprawdzić release
+	// 3. Dark mode
 	public partial class MainWindow : Window
 	{
 		public MainWindow()
@@ -28,7 +30,14 @@ namespace ArduinoTwitchBot.UI
 			}
 
 			// Save user settings before quitting.
-			UserSettings.SaveUserSettings();
+			try
+			{
+				UserSettings.SaveUserSettings();
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show($"{ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+			}
 
 			// Disconnect the bot (if it's running).
 			TwitchBot.Instance.Disconnect();

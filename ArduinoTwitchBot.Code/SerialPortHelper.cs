@@ -5,6 +5,7 @@ namespace ArduinoTwitchBot.Code
 {
 	public static class SerialPortHelper
 	{
+		// There is no way to change these as of now.
 		private const int BAUD_RATE = 9600;
 		private const int READ_TIMEOUT = 2000;
 		private const int WRITE_TIMEOUT = 2000;
@@ -37,20 +38,29 @@ namespace ArduinoTwitchBot.Code
 
 					case SignalType.Int:
 						{
-							// Convert the int to Byte Array.
-							var bytes = BitConverter.GetBytes(int.Parse(message));
+							var isInt = int.TryParse(message, out int intMessage);
+							if (isInt)
+							{
+								// Convert the int to Byte Array.
+								var bytes = BitConverter.GetBytes(intMessage);
 
-							port.Write(bytes, 0, 4);
+								port.Write(bytes, 0, 4);
+							}
 
 							break;
 						}
 
 					case SignalType.Byte:
 						{
-							// Just like above, but only send one byte.
-							var bytes = BitConverter.GetBytes(byte.Parse(message));
+							var isByte = byte.TryParse(message, out byte byteMessage);
+							if (isByte)
+							{
+								// Just like above, but only send one byte.
+								var bytes = BitConverter.GetBytes(byteMessage);
 
-							port.Write(bytes, 0, 4);
+								port.Write(bytes, 0, 1);
+							}
+
 							break;
 						}
 				}

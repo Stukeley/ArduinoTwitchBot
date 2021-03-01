@@ -41,6 +41,12 @@ namespace ArduinoTwitchBot.Code
 
 		public async void Connect(string clientId, string accessToken, string channelName, string portName, Alert[] alerts)
 		{
+			// Check if the needed parameters are provided.
+			if (string.IsNullOrEmpty(clientId) || string.IsNullOrEmpty(accessToken) || string.IsNullOrEmpty(channelName) || string.IsNullOrEmpty(portName))
+			{
+				throw new Exception("One of the required parameters was not provided. Make sure to specify: ClientId, AccessToken, ChannelName and PortName.");
+			}
+
 			// Write ClientId and AccessToken.
 			ClientId = clientId;
 			AccessToken = accessToken;

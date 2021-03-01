@@ -1,5 +1,6 @@
 ﻿using ArduinoTwitchBot.Code;
 using NUnit.Framework;
+using System;
 
 namespace ArduinoTwitchBot.Tests
 {
@@ -53,6 +54,33 @@ namespace ArduinoTwitchBot.Tests
 			Assert.IsNotNull(_twitchBot.PortName);
 			Assert.IsNotNull(_twitchBot.Alerts);
 			Assert.IsNotNull(_twitchBot._client);
+		}
+
+		[Test]
+		public void Connect_ExceptionThrownWhenParametersNull()
+		{
+			var channelName = "Stukeleyak";
+			var portName = "COM3";
+
+			var alerts = new Alert[6]
+			{
+				new Alert(true, "Follow"),
+				new Alert(true, "Sub"),
+				new Alert(true, "Bits"),
+				new Alert(false),
+				new Alert(true, "Raid"),
+				new Alert(false)
+			};
+
+			try
+			{
+				_twitchBot.Connect("", null, channelName, portName, alerts);
+				Assert.Fail("An exception should have been thrown - null parameters.");
+			}
+			catch (Exception)
+			{
+				Assert.Pass("An exception was correctly thrown.");
+			}
 		}
 
 		[Test]

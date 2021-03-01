@@ -25,7 +25,7 @@ namespace ArduinoTwitchBot.UI.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("COM1")]
         public string PortName {
             get {
                 return ((string)(this["PortName"]));
