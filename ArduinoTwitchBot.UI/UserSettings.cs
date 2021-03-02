@@ -12,6 +12,7 @@ namespace ArduinoTwitchBot.UI
 		public static string AccessToken { get; set; }
 		public static string ChannelName { get; set; }
 		public static Alert[] Alerts { get; set; }
+		public static bool IsDarkTheme { get; set; }
 
 		#endregion
 
@@ -53,6 +54,7 @@ namespace ArduinoTwitchBot.UI
 				Properties.Settings.Default["ClientId"] = ClientId;
 				Properties.Settings.Default["AccessToken"] = AccessToken;
 				Properties.Settings.Default["ChannelName"] = ChannelName;
+				Properties.Settings.Default["IsDarkTheme"] = IsDarkTheme;
 
 				// Save alert settings.
 				Properties.Settings.Default["FollowAlert"] = Alerts[0].IsActive;
@@ -99,6 +101,7 @@ namespace ArduinoTwitchBot.UI
 				ClientId = Properties.Settings.Default["ClientId"].ToString();
 				AccessToken = Properties.Settings.Default["AccessToken"].ToString();
 				ChannelName = Properties.Settings.Default["ChannelName"].ToString();
+				IsDarkTheme = (bool)Properties.Settings.Default["IsDarkTheme"];
 
 				// Load alert settings.
 				Alerts = new Alert[6]
@@ -123,7 +126,7 @@ namespace ArduinoTwitchBot.UI
 				ClientId = ClientId is null ? "" : ClientId;
 				AccessToken = AccessToken is null ? "" : AccessToken;
 				ChannelName = ChannelName is null ? "" : ChannelName;
-				Alerts = Alerts is null ? new Alert[0] : Alerts;
+				Alerts = Alerts is null ? Array.Empty<Alert>() : Alerts;
 			}
 		}
 	}

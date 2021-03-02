@@ -7,55 +7,67 @@
 	  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
 	  mc:Ignorable="d" 
 	  d:DesignHeight="400" d:DesignWidth="500"
-	  Title="SettingsPage" Background="White">
+	  Title="SettingsPage" TextElement.Foreground="{DynamicResource MaterialDesignBody}" Background="{DynamicResource MaterialDesignPaper}" FontFamily="{materialDesign:MaterialDesignFont}">
 
-	<StackPanel>
+	<Grid>
+		<StackPanel Orientation="Horizontal" Width="200" Height="40" VerticalAlignment="Top" Margin="0,10,0,0" HorizontalAlignment="Right">
+			<TextBlock VerticalAlignment="Center" Text="Light" Padding="30,0,0,0" FontSize="14"/>
+			<materialDesign:PackIcon Kind="WeatherSunny" VerticalAlignment="Center" Width="20" Height="20" Margin="2,0,0,0"/>
 
-		<Button x:Name="MainPageButton" Width="100" Height="40" Margin="0,10,0,10" Padding="0" Click="MainPageButton_Click" ToolTip="Click here to navigate and connect the bot." FontSize="18">
-			<StackPanel Orientation="Horizontal">
-				<materialDesign:PackIcon Kind="Home" Width="20" Height="20" VerticalAlignment="Center"/>
-				<TextBlock Text="Home" VerticalAlignment="Center" Margin="5,0,0,0"/>
+			<ToggleButton Margin="8,0,8,0" IsChecked="{Binding IsDarkTheme, Mode=TwoWay}"/>
+
+			<materialDesign:PackIcon Kind="MoonWaningCrescent" VerticalAlignment="Center" Width="20" Height="20" Margin="0,0,2,0"/>
+			<TextBlock VerticalAlignment="Center" Text="Dark" FontSize="14"/>
+		</StackPanel>
+
+		<StackPanel>
+
+			<Button x:Name="MainPageButton" Width="100" Height="40" Margin="0,10,0,10" Padding="0" Click="MainPageButton_Click" ToolTip="Click here to navigate and connect the bot." FontSize="18">
+				<StackPanel Orientation="Horizontal">
+					<materialDesign:PackIcon Kind="Home" Width="20" Height="20" VerticalAlignment="Center"/>
+					<TextBlock Text="Home" VerticalAlignment="Center" Margin="5,0,0,0"/>
+				</StackPanel>
+			</Button>
+
+			<materialDesign:PackIcon x:Name="ClientIdHelpButton" Kind="QuestionMarkCircle" Foreground="Purple" VerticalAlignment="Center" HorizontalAlignment="Center" Width="30" Height="30" ToolTip="Click here to learn more on how to set up the bot." PreviewMouseUp="ClientIdHelpButton_PreviewMouseUp" Margin="5,0,0,0" Cursor="Hand"/>
+
+			<StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="10">
+				<Grid>
+					<PasswordBox x:Name="ClientIdBox" materialDesign:HintAssist.Hint="Client Id" FontSize="18" Width="350" PasswordChar="•"/>
+					<TextBox x:Name="VisibleClientIdBox" materialDesign:HintAssist.Hint="Client Id" FontSize="18" Width="350" Visibility="Collapsed"/>
+					<materialDesign:PackIcon x:Name="ShowHideClientId" Kind="Eye" Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5" Foreground="DarkSlateGray" PreviewMouseUp="ShowHideClientId_PreviewMouseUp" Cursor="Hand"/>
+				</Grid>
+
+				<Grid Margin="0,10,0,0">
+					<PasswordBox x:Name="AccessTokenBox" materialDesign:HintAssist.Hint="Access token" FontSize="18" Width="350" PasswordChar="•"/>
+					<TextBox x:Name="VisibleAccessTokenBox" materialDesign:HintAssist.Hint="Access token" FontSize="18" Width="350" Visibility="Collapsed"/>
+					<materialDesign:PackIcon x:Name="ShowHideAccessToken" Kind="Eye" Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5" Foreground="DarkSlateGray" PreviewMouseUp="ShowHideAccessToken_PreviewMouseUp" Cursor="Hand"/>
+				</Grid>
+
+				<TextBox x:Name="ChannelNameBox" materialDesign:HintAssist.Hint="Channel name" FontSize="18" Width="200" Margin="0,10,0,0"/>
+
 			</StackPanel>
-		</Button>
 
-		<materialDesign:PackIcon x:Name="ClientIdHelpButton" Kind="QuestionMarkCircle" Foreground="Purple" VerticalAlignment="Center" HorizontalAlignment="Center" Width="30" Height="30" ToolTip="Click here to learn more on how to set up the bot." PreviewMouseUp="ClientIdHelpButton_PreviewMouseUp" Margin="5,0,0,0" Cursor="Hand"/>
+			<Separator Width="300" Background="Purple" Margin="10"/>
 
-		<StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="10">
-			<Grid>
-				<PasswordBox x:Name="ClientIdBox" materialDesign:HintAssist.Hint="Client Id" FontSize="18" Width="350" PasswordChar="•"/>
-				<TextBox x:Name="VisibleClientIdBox" materialDesign:HintAssist.Hint="Client Id" FontSize="18" Width="350" Visibility="Collapsed"/>
-				<materialDesign:PackIcon x:Name="ShowHideClientId" Kind="Eye" Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5" Foreground="DarkSlateGray" PreviewMouseUp="ShowHideClientId_PreviewMouseUp" Cursor="Hand"/>
-			</Grid>
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+				<TextBlock Text="COM port" FontSize="18" VerticalAlignment="Center" Width="150" TextAlignment="Center"/>
 
-			<Grid Margin="0,10,0,0">
-				<PasswordBox x:Name="AccessTokenBox" materialDesign:HintAssist.Hint="Access token" FontSize="18" Width="350" PasswordChar="•"/>
-				<TextBox x:Name="VisibleAccessTokenBox" materialDesign:HintAssist.Hint="Access token" FontSize="18" Width="350" Visibility="Collapsed"/>
-				<materialDesign:PackIcon x:Name="ShowHideAccessToken" Kind="Eye" Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5" Foreground="DarkSlateGray" PreviewMouseUp="ShowHideAccessToken_PreviewMouseUp" Cursor="Hand"/>
-			</Grid>
+				<ComboBox x:Name="PortSelectionBox" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" ToolTip="Select the desired COM port." Margin="20,0,0,0" FontSize="18"/>
 
-			<TextBox x:Name="ChannelNameBox" materialDesign:HintAssist.Hint="Channel name" FontSize="18" Width="200" Margin="0,10,0,0"/>
-			
+				<Button x:Name="RefreshPortNamesButton" Content="Refresh" VerticalAlignment="Center" ToolTip="If you don't see your COM port on the list, try refreshing." Click="RefreshPortNamesButton_Click" Margin="20,0,0,0" Width="80"/>
+			</StackPanel>
+
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+				<TextBox x:Name="ConnectionTestBox" materialDesign:HintAssist.Hint="Sample signal" FontSize="18" Width="150" ToolTip="Enter a value that should be sent over through the selected port, and press Test to see if it works." VerticalAlignment="Center" TextAlignment="Center"/>
+
+				<ComboBox x:Name="TestSignalTypeBox" Width="100" Margin="20,0,0,0" ToolTip="What data type the value sent will be interpreted as." VerticalAlignment="Center" FontSize="18">
+					<!-- Dynamically generated values -->
+				</ComboBox>
+
+				<Button x:Name="ConnectionTestButton" Content="Test" ToolTip="Test if the connection works." Click="ConnectionTestButton_Click" Margin="20,0,0,0" VerticalAlignment="Center" Width="80" Background="#dc2a97"/>
+			</StackPanel>
+
 		</StackPanel>
-
-		<Separator Width="300" Background="Purple" Margin="10"/>
-
-		<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-			<TextBlock Text="COM port" FontSize="18" VerticalAlignment="Center" Width="150" TextAlignment="Center"/>
-
-			<ComboBox x:Name="PortSelectionBox" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" ToolTip="Select the desired COM port." Margin="20,0,0,0" FontSize="18"/>
-
-			<Button x:Name="RefreshPortNamesButton" Content="Refresh" VerticalAlignment="Center" ToolTip="If you don't see your COM port on the list, try refreshing." Click="RefreshPortNamesButton_Click" Margin="20,0,0,0" Width="80"/>
-		</StackPanel>
-
-		<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-			<TextBox x:Name="ConnectionTestBox" materialDesign:HintAssist.Hint="Sample signal" FontSize="18" Width="150" ToolTip="Enter a value that should be sent over through the selected port, and press Test to see if it works." VerticalAlignment="Center" TextAlignment="Center"/>
-
-			<ComboBox x:Name="TestSignalTypeBox" Width="100" Margin="20,0,0,0" ToolTip="What data type the value sent will be interpreted as." VerticalAlignment="Center" FontSize="18">
-				<!-- Dynamically generated values -->
-			</ComboBox>
-
-			<Button x:Name="ConnectionTestButton" Content="Test" ToolTip="Test if the connection works." Click="ConnectionTestButton_Click" Margin="20,0,0,0" VerticalAlignment="Center" Width="80" Background="#dc2a97"/>
-		</StackPanel>
-
-	</StackPanel>
+	</Grid>
 </Page>

@@ -7,14 +7,37 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace ArduinoTwitchBot.UI.Pages
 {
 	public partial class SettingsPage : Page
 	{
+		private bool _isDarkTheme;
+		public bool IsDarkTheme
+		{
+			get
+			{
+				return _isDarkTheme;
+			}
+			set
+			{
+				// Change theme.
+				_isDarkTheme = value;
+
+				(Application.Current.MainWindow as MainWindow).ChangeApplicationTheme(value);
+
+				// Set icon colors manually.
+				var iconForeground = value ? new SolidColorBrush(Colors.LightSlateGray) : new SolidColorBrush(Colors.DarkSlateGray);
+				ShowHideClientId.Foreground = iconForeground;
+				ShowHideAccessToken.Foreground = iconForeground;
+			}
+		}
+
 		public SettingsPage()
 		{
 			InitializeComponent();
+			this.DataContext = this;
 
 			RefreshPortNames();
 			RefreshSignalTypes();
@@ -24,6 +47,9 @@ namespace ArduinoTwitchBot.UI.Pages
 			AccessTokenBox.Password = UserSettings.AccessToken;
 			ChannelNameBox.Text = UserSettings.ChannelName;
 			PortSelectionBox.SelectedItem = UserSettings.PortName;
+
+			// Change IsDark to the right theme.
+			IsDarkTheme = UserSettings.IsDarkTheme;
 		}
 
 		private void RefreshSignalTypes()
@@ -47,6 +73,7 @@ namespace ArduinoTwitchBot.UI.Pages
 			UserSettings.AccessToken = ShowHideAccessToken.Kind == PackIconKind.Eye ? AccessTokenBox.Password.Trim() : VisibleAccessTokenBox.Text.Trim();
 			UserSettings.ChannelName = ChannelNameBox.Text.Trim();
 			UserSettings.PortName = PortSelectionBox.SelectedValue.ToString();
+			UserSettings.IsDarkTheme = IsDarkTheme;
 		}
 
 		private void ConnectionTestButton_Click(object sender, RoutedEventArgs e)

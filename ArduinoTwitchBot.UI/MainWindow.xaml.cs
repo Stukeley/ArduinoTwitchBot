@@ -1,20 +1,28 @@
 ﻿using ArduinoTwitchBot.Code;
 using ArduinoTwitchBot.UI.Pages;
+using MaterialDesignThemes.Wpf;
 using System;
 using System.ComponentModel;
 using System.Windows;
 
 namespace ArduinoTwitchBot.UI
 {
-	// TODO:
-	// 1. Different font
-	// 2. settingsy mogą być overwritowane przez VS - sprawdzić release
-	// 3. Dark mode
 	public partial class MainWindow : Window
 	{
+		private readonly PaletteHelper _paletteHelper = new PaletteHelper();
+
 		public MainWindow()
 		{
 			InitializeComponent();
+		}
+
+		public void ChangeApplicationTheme(bool isDark)
+		{
+			// Switch theme based on the IsDark property.
+			var theme = _paletteHelper.GetTheme();
+			var baseTheme = isDark ? new MaterialDesignDarkTheme() : (IBaseTheme)new MaterialDesignLightTheme();
+			theme.SetBaseTheme(baseTheme);
+			_paletteHelper.SetTheme(theme);
 		}
 
 		protected override void OnClosing(CancelEventArgs e)

@@ -43,6 +43,9 @@ namespace ArduinoTwitchBot.UI.Pages
 				EmoteAlertSignalBox.Text = alerts[5].Signal;
 				EmoteSignalTypeBox.SelectedItem = alerts[5].SignalType;
 			}
+
+			//Re - set application theme.
+			(Application.Current.MainWindow as MainWindow).ChangeApplicationTheme(UserSettings.IsDarkTheme);
 		}
 
 		private void RefreshSignalTypes()
