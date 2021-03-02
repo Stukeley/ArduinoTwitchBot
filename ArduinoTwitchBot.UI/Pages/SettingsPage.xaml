@@ -48,7 +48,7 @@
 
 			</StackPanel>
 
-			<Separator Width="300" Background="Purple" Margin="10"/>
+			<Separator x:Name="HorizontaSeparator" Width="300" Background="Purple" Margin="10"/>
 
 			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
 				<TextBlock Text="COM port" FontSize="18" VerticalAlignment="Center" Width="150" TextAlignment="Center"/>

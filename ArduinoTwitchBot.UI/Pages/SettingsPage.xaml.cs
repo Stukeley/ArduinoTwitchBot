@@ -31,6 +31,10 @@ namespace ArduinoTwitchBot.UI.Pages
 				var iconForeground = value ? new SolidColorBrush(Colors.LightSlateGray) : new SolidColorBrush(Colors.DarkSlateGray);
 				ShowHideClientId.Foreground = iconForeground;
 				ShowHideAccessToken.Foreground = iconForeground;
+
+				// Set separator color manually.
+				var separatorForeground = value ? new SolidColorBrush(Color.FromRgb(220, 42, 151)) : new SolidColorBrush(Colors.Purple);
+				HorizontaSeparator.Foreground = separatorForeground;
 			}
 		}
 
