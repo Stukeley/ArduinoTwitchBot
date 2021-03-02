@@ -7,6 +7,8 @@
 # ArduinoTwitchBot  
 A customizable Twitch chatbot that sends out signals to Arduino whenever an event (eg. follow) occurs.
 
+Built using [TwitchLib](https://github.com/TwitchLib/TwitchLib) and [MaterialDesign for XAML](https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit).
+
 ## Table of Contents
 * [How it works](#how-it-works)
 * [Features](#features)
