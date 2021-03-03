@@ -83,7 +83,7 @@ namespace ArduinoTwitchBot.UI
 			}
 			catch (Exception ex)
 			{
-				throw ex;
+				throw;
 			}
 			finally
 			{
@@ -97,7 +97,7 @@ namespace ArduinoTwitchBot.UI
 			try
 			{
 				// Check if properties exist.
-				PortName = Properties.Settings.Default["PortName"].ToString();
+				PortName = Properties.Settings.Default.PortName.ToString();
 				ClientId = Properties.Settings.Default["ClientId"].ToString();
 				AccessToken = Properties.Settings.Default["AccessToken"].ToString();
 				ChannelName = Properties.Settings.Default["ChannelName"].ToString();
