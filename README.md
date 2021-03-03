@@ -47,7 +47,9 @@ To make this work, you will need an OAUTH Access Token from Twitch - an explanat
 Let me know if you need more help!
 
 ## <a name="design"></a>Design
-<img width="426" height="353" src="https://i.imgur.com/KXXnSQ0.png"> <img width="426" height="353" src="https://i.imgur.com/Ga6nRVS.png"> <img width="426" height="353" src="https://i.imgur.com/PxSt6aH.png"> <img width="426" height="353" src="https://i.imgur.com/batMjeo.png"> 
+<img width="426" height="353" src="https://i.imgur.com/KXXnSQ0.png"> <img width="426" height="353" src="https://i.imgur.com/Ga6nRVS.png">
+---
+<img width="426" height="353" src="https://i.imgur.com/PxSt6aH.png"> <img width="426" height="353" src="https://i.imgur.com/batMjeo.png"> 
 
 ## <a name="sample-schematic"></a>Sample schematic
 A sample schematic along with the code needed on the Arduino side can be found in the **ArduinoTwitchBot.Example** folder.  
