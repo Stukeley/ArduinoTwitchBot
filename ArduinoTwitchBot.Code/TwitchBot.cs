@@ -152,6 +152,9 @@ namespace ArduinoTwitchBot.Code
 				// Send a signal.
 				try
 				{
+#if DEBUG
+					Trace.WriteLine("Emote received!");
+#endif
 					SerialPortHelper.SendMessage(PortName, Alerts[5].Signal, Alerts[5].SignalType);
 				}
 				catch (Exception ex)

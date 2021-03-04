@@ -6,6 +6,8 @@ using System.Windows.Controls;
 
 namespace ArduinoTwitchBot.UI.Pages
 {
+	// TODO
+	// 1. Signals history
 	public partial class MainPage : Page
 	{
 		public MainPage()
