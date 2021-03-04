@@ -161,10 +161,18 @@ namespace ArduinoTwitchBot.UI.Pages
 
 			var alerts = UserSettings.Alerts;
 
-			// Connect the bot.
+			// Connect the PubSub client if any (or all) of the 1-5 alerts have been selected.
+			// Else connect the Chat client.
 			try
 			{
-				TwitchBot.Instance.Connect(UserSettings.ClientId, UserSettings.AccessToken, UserSettings.ChannelName, UserSettings.PortName, alerts);
+				if (alerts.Take(5).Any(x => x.IsActive))
+				{
+					TwitchBot.Instance.Connect(UserSettings.ClientId, UserSettings.AccessToken, UserSettings.ChannelName, UserSettings.PortName, alerts);
+				}
+				if (alerts[5].IsActive)
+				{
+					TwitchBot.Instance.ConnectChatClient(UserSettings.AccessToken, UserSettings.ChannelName, UserSettings.PortName, alerts[5], UserSettings.EmotesList);
+				}
 			}
 			catch (Exception ex)
 			{

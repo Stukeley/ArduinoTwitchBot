@@ -18,7 +18,7 @@
 			</StackPanel>
 		</Button>
 
-		<StackPanel x:Name="FollowAlertPanel" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+		<StackPanel x:Name="FollowAlertPanel" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5,24,0,0">
 			<CheckBox x:Name="FollowAlertCheckbox" IsThreeState="False" ToolTip="Should follower events be announced?" FontSize="18">
 				<TextBlock Text="Follow alert" Margin="0,-2,10,0"/>
 			</CheckBox>
@@ -83,25 +83,22 @@
 
 		</StackPanel>
 
-		<StackPanel x:Name="EmoteAlertPanel" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5" Visibility="Hidden">
-			<CheckBox x:Name="EmoteAlertCheckbox" IsThreeState="False" ToolTip="Should certain emotes in chat be announced?" Margin="20,0,16,0" IsEnabled="False">
-				<TextBlock Margin="0,-2,0,0">
-					<Run Foreground="Black" Text="Emote alert" FontSize="14"/>
-					<Run Foreground="OrangeRed" Text="(beta)" FontSize="14"/>
-				</TextBlock>
+		<StackPanel x:Name="EmoteAlertPanel" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+			<CheckBox x:Name="EmoteAlertCheckbox" IsThreeState="False" ToolTip="Should certain emotes in chat be announced? Make sure to edit the list of emotes, using the button to the right, before Connecting." Margin="38,0,0,0">
+				<TextBlock Margin="0,-2,8,0" Text="Emote alert" FontSize="18"/>
 			</CheckBox>
 
-			<TextBox x:Name="EmoteAlertSignalBox" Width="80" Margin="20,0,0,0" materialDesign:HintAssist.Hint="Value" ToolTip="Enter a value that will be sent through the Serial Port." FontSize="18"/>
+			<TextBox x:Name="EmoteAlertSignalBox" Width="80" Margin="25,0,0,0" materialDesign:HintAssist.Hint="Value" ToolTip="Enter a value that will be sent through the Serial Port." FontSize="18"/>
 
 			<ComboBox x:Name="EmoteSignalTypeBox" Width="80" Margin="10,0,0,0" ToolTip="Should the given value be interpreted as an int, or a string?" FontSize="18">
 				<!-- Dynamically generated values -->
 			</ComboBox>
 
-			<materialDesign:PackIcon x:Name="SetEmoteListButton" Kind="PencilCircleOutline" Width="20" Height="20" Margin="20,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="Purple" ToolTip="Click here to create or edit the list of announced emotes." PreviewMouseUp="SetEmoteListButton_PreviewMouseUp" Cursor="Hand"/>
+			<materialDesign:PackIcon x:Name="SetEmoteListButton" Kind="PencilCircle" Width="20" Height="20" Margin="20,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="Purple" ToolTip="Click here to create or edit the list of announced emotes." PreviewMouseUp="SetEmoteListButton_PreviewMouseUp" Cursor="Hand"/>
 
 		</StackPanel>
 
-		<Button x:Name="ConnectButton" Width="100" Height="40" Margin="0,10,0,20" Padding="0" ToolTip="Connect the bot! (make sure that you filled in everything in the Settings page before clicking this)." FontSize="18" Click="ConnectButton_Click">
+		<Button x:Name="ConnectButton" Width="100" Height="40" Margin="0,41,0,0" Padding="0" ToolTip="Connect the bot! (make sure that you filled in everything in the Settings page before clicking this)." FontSize="18" Click="ConnectButton_Click">
 			<StackPanel Orientation="Horizontal">
 				<materialDesign:PackIcon Kind="Connection" Width="20" Height="20" VerticalAlignment="Center"/>
 

@@ -1,6 +1,7 @@
 ﻿using ArduinoTwitchBot.Code;
 using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 
 namespace ArduinoTwitchBot.Tests
 {
@@ -87,6 +88,27 @@ namespace ArduinoTwitchBot.Tests
 		public void Disconnect_NoExceptionThrown()
 		{
 			Assert.DoesNotThrow(() => _twitchBot.Disconnect());
+		}
+
+		[Test]
+		public void ConnectChatClient_NoExceptionThrown_ChatClientNotNull()
+		{
+			var channelName = "Stukeleyak";
+			var portName = "COM3";
+			var alert = new Alert(true, "Test");
+			var emotesList = new List<string>() { "Kappa" };
+
+			Assert.DoesNotThrow(() => _twitchBot.ConnectChatClient(Properties.Resources.AccessToken, channelName, portName, alert, emotesList));
+			Assert.IsNotNull(_twitchBot._chatClient);
+			Assert.IsNotNull(_twitchBot.AccessToken);
+			Assert.IsNotNull(_twitchBot.PortName);
+			Assert.IsNotNull(_twitchBot.EmotesList);
+		}
+
+		[Test]
+		public void DisconnectChatClient_NoExceptionThrown()
+		{
+			Assert.DoesNotThrow(() => _twitchBot.DisconnectChatClient());
 		}
 	}
 }

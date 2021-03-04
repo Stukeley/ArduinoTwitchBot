@@ -1,5 +1,8 @@
 ﻿using ArduinoTwitchBot.Code;
 using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Linq;
 
 namespace ArduinoTwitchBot.UI
 {
@@ -13,6 +16,7 @@ namespace ArduinoTwitchBot.UI
 		public static string ChannelName { get; set; }
 		public static Alert[] Alerts { get; set; }
 		public static bool IsDarkTheme { get; set; }
+		public static List<string> EmotesList { get; set; }
 
 		#endregion
 
@@ -80,8 +84,13 @@ namespace ArduinoTwitchBot.UI
 				Properties.Settings.Default["EmoteAlert"] = Alerts[5].IsActive;
 				Properties.Settings.Default["EmoteAlertValue"] = Alerts[5].Signal;
 				Properties.Settings.Default["EmoteAlertType"] = Alerts[5].SignalType.ToString();
+
+				// Save emotes list.
+				var stringCollection = new StringCollection();
+				stringCollection.AddRange(EmotesList.ToArray());
+				Properties.Settings.Default["EmotesList"] = stringCollection;
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
 				throw;
 			}
@@ -118,6 +127,9 @@ namespace ArduinoTwitchBot.UI
 
 					new Alert(bool.Parse(Properties.Settings.Default["EmoteAlert"].ToString()), Properties.Settings.Default["EmoteAlertValue"].ToString(), (SignalType)Enum.Parse(typeof(SignalType),Properties.Settings.Default["EmoteAlertType"].ToString()))
 				};
+
+				// Load emotes list.
+				EmotesList = (Properties.Settings.Default["EmotesList"] as StringCollection).Cast<string>().ToList();
 			}
 			catch (Exception)
 			{
@@ -127,6 +139,7 @@ namespace ArduinoTwitchBot.UI
 				AccessToken = AccessToken is null ? "" : AccessToken;
 				ChannelName = ChannelName is null ? "" : ChannelName;
 				Alerts = Alerts is null ? Array.Empty<Alert>() : Alerts;
+				EmotesList = EmotesList is null ? new List<string>() : EmotesList;
 			}
 		}
 	}

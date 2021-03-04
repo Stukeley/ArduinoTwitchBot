@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using TwitchLib.Api;
 using TwitchLib.Client;
+using TwitchLib.Client.Models;
 using TwitchLib.PubSub;
 
 namespace ArduinoTwitchBot.Code
@@ -25,9 +27,15 @@ namespace ArduinoTwitchBot.Code
 		}
 		#endregion
 
+		public TwitchBot()
+		{
+			Alerts = new Alert[6];
+		}
+
 		public string ClientId { get; set; }
 		public string AccessToken { get; set; }
 		public string PortName { get; set; }
+		// Follows, subs, bits, raids, hosts and emotes, in this order.
 		public Alert[] Alerts { get; set; }
 
 		// API to get Channel Id from username.
@@ -37,8 +45,10 @@ namespace ArduinoTwitchBot.Code
 		public TwitchPubSub _client { get; private set; }
 
 		// Experimental client for listening to chat messages
-		private TwitchClient _chatClient;
+		public TwitchClient _chatClient { get; private set; }
+		public List<string> EmotesList { get; set; }
 
+		// Connect the PubSub client.
 		public async void Connect(string clientId, string accessToken, string channelName, string portName, Alert[] alerts)
 		{
 			// Check if the needed parameters are provided.
@@ -91,17 +101,79 @@ namespace ArduinoTwitchBot.Code
 				_client.OnHost += this.Client_OnHost;
 			}
 
-			if (alerts[5])
-			{
-				// TODO
-			}
+			// ChatClient is connected from a different place.
 
 			_client.Connect();
 		}
 
+		// Disconnect the PubSub client.
 		public void Disconnect()
 		{
 			_client?.Disconnect();
+		}
+
+		// Connect the ClientChat (Emote alerts).
+		public void ConnectChatClient(string accessToken, string channelName, string portName, Alert emoteAlert, List<string> emotesList, string botName = "ArduinoBot")
+		{
+			// Make sure EmotesList has been filled up by the user.
+			if (EmotesList?.Count == 0)
+			{
+				throw new Exception("Emote list is empty - unable to listen to emotes sent in chat.");
+			}
+
+			AccessToken = accessToken;
+			EmotesList = emotesList;
+			PortName = portName;
+			Alerts[5] = emoteAlert;
+
+			_chatClient = new TwitchClient();
+			var credentials = new ConnectionCredentials(botName, accessToken);
+			_chatClient.Initialize(credentials, channelName);
+
+			_chatClient.OnJoinedChannel += ChatClient_OnJoinedChannel;
+			_chatClient.OnMessageReceived += ChatClient_OnMessageReceived;
+			_chatClient.OnConnected += ChatClient_OnConnected; ;
+
+			_chatClient.Connect();
+		}
+
+		private void ChatClient_OnConnected(object sender, TwitchLib.Client.Events.OnConnectedArgs e)
+		{
+#if DEBUG
+			Trace.WriteLine($"Connected bot of username: {e.BotUsername} to channel: {e.AutoJoinChannel}");
+#endif
+		}
+
+		private void ChatClient_OnMessageReceived(object sender, TwitchLib.Client.Events.OnMessageReceivedArgs e)
+		{
+			// Check if message contains an emote that is on the list.
+			if (EmotesList.Any(x => e.ChatMessage.Message.Contains(x)))
+			{
+				// Send a signal.
+				try
+				{
+					SerialPortHelper.SendMessage(PortName, Alerts[5].Signal, Alerts[5].SignalType);
+				}
+				catch (Exception ex)
+				{
+#if DEBUG
+					Trace.WriteLine(ex.Message);
+#endif
+				}
+			}
+		}
+
+		private void ChatClient_OnJoinedChannel(object sender, TwitchLib.Client.Events.OnJoinedChannelArgs e)
+		{
+#if DEBUG
+			Trace.WriteLine($"Joined channel: {e.Channel}");
+#endif
+		}
+
+		// Disconnect the ClientChat (Emote alerts).
+		public void DisconnectChatClient()
+		{
+			_chatClient?.Disconnect();
 		}
 
 		public async Task<string> GetChannelId(string channelName)

@@ -36,6 +36,10 @@ namespace ArduinoTwitchBot.UI
 			{
 				settingsPage.SaveSettings();
 			}
+			else if (this.PageFrame.Content is EmotesPage emotesPage)
+			{
+				emotesPage.SaveEmotes();
+			}
 
 			// Save user settings before quitting.
 			try
@@ -47,8 +51,9 @@ namespace ArduinoTwitchBot.UI
 				MessageBox.Show($"{ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 			}
 
-			// Disconnect the bot (if it's running).
+			// Disconnect both bots (if they are running).
 			TwitchBot.Instance.Disconnect();
+			TwitchBot.Instance.DisconnectChatClient();
 
 			base.OnClosing(e);
 		}

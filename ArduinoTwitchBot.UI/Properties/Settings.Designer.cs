@@ -298,5 +298,16 @@ namespace ArduinoTwitchBot.UI.Properties {
                 this["EmoteAlertType"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection EmotesList {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["EmotesList"]));
+            }
+            set {
+                this["EmotesList"] = value;
+            }
+        }
     }
 }
