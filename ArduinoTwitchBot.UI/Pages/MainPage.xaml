@@ -19,7 +19,7 @@
 				</StackPanel>
 			</Button>
 
-			<Button x:Name="HistoryButton" Width="40" Height="40" VerticalAlignment="Top" Margin="0,10,50,0" HorizontalAlignment="Right" FontSize="16" Padding="0" Background="#dc2a97" ToolTip="Events history" Style="{StaticResource MaterialDesignIconButton}" Click="HistoryButton_Click">
+			<Button x:Name="HistoryButton" Width="40" Height="40" VerticalAlignment="Top" Margin="0,10,50,0" HorizontalAlignment="Right" FontSize="16" Padding="0" Background="#dc2a97" ToolTip="Events history" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Click="HistoryButton_Click">
 				<StackPanel Orientation="Horizontal">
 					<materialDesign:PackIcon Kind="History" Width="20" Height="20" VerticalAlignment="Center" Foreground="White"/>
 				</StackPanel>

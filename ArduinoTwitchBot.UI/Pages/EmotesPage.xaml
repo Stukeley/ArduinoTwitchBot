@@ -19,7 +19,7 @@
 		</Button>
 
 		<Border BorderThickness="1" BorderBrush="Gray" Width="450" Height="300" ToolTip="Enter emote names, separated with commas, semicolons or spaces. A signal will be sent if any of these emotes is used in chat" Margin="0,10,0,0">
-			<TextBox x:Name="EmotesTextBox" AcceptsReturn="True" FontSize="16" Padding="8" MaxLines="14">
+			<TextBox x:Name="EmotesTextBox" AcceptsReturn="True" FontSize="16" Padding="8" MaxLines="14" TextWrapping="Wrap">
 
 			</TextBox>
 		</Border>
