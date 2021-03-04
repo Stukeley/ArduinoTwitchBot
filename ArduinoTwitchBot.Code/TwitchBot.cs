@@ -276,7 +276,7 @@ namespace ArduinoTwitchBot.Code
 			try
 			{
 				SerialPortHelper.SendMessage(PortName, Alerts[2].Signal, Alerts[2].SignalType);
-				EventHistory.TwitchEvents.Add(new TwitchEvent(e.Username, DateTime.Now, TwitchEventType.Bits));
+				EventHistory.TwitchEvents.Insert(0, new TwitchEvent(e.Username, DateTime.Now, TwitchEventType.Bits));
 			}
 			catch (Exception ex)
 			{
@@ -294,7 +294,7 @@ namespace ArduinoTwitchBot.Code
 			try
 			{
 				SerialPortHelper.SendMessage(PortName, Alerts[1].Signal, Alerts[1].SignalType);
-				EventHistory.TwitchEvents.Add(new TwitchEvent(e.Subscription.Username, DateTime.Now, TwitchEventType.Sub));
+				EventHistory.TwitchEvents.Insert(0, new TwitchEvent(e.Subscription.Username, DateTime.Now, TwitchEventType.Sub));
 			}
 			catch (Exception ex)
 			{
@@ -312,7 +312,7 @@ namespace ArduinoTwitchBot.Code
 			try
 			{
 				SerialPortHelper.SendMessage(PortName, Alerts[0].Signal, Alerts[0].SignalType);
-				EventHistory.TwitchEvents.Add(new TwitchEvent(e.DisplayName, DateTime.Now, TwitchEventType.Follow));
+				EventHistory.TwitchEvents.Insert(0, new TwitchEvent(e.DisplayName, DateTime.Now, TwitchEventType.Follow));
 			}
 			catch (Exception ex)
 			{

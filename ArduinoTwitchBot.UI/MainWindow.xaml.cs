@@ -7,6 +7,9 @@ using System.Windows;
 
 namespace ArduinoTwitchBot.UI
 {
+	// TODO:
+	// 1. consistent style przycisków
+	// 2. inny kolor alternatywnego przycisku?
 	public partial class MainWindow : Window
 	{
 		private readonly PaletteHelper _paletteHelper = new PaletteHelper();

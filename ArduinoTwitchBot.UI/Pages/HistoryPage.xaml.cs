@@ -25,7 +25,24 @@ namespace ArduinoTwitchBot.UI.Pages
 
 		private void PopupButton_Click(object sender, RoutedEventArgs e)
 		{
+			// Create a second window only if it's not already open.
+			foreach (var window in Application.Current.Windows)
+			{
+				if (window is PopupWindow)
+				{
+					return;
+				}
+			}
 
+			var historyWindow = new PopupWindow(this);
+			historyWindow.Show();
+
+			// Hide unnecessary buttons.
+			this.PopupButton.Visibility = Visibility.Collapsed;
+			this.MainPageButton.Visibility = Visibility.Collapsed;
+
+			// Go back to HomePage.
+			(Application.Current.MainWindow as MainWindow).PageFrame.Navigate(new MainPage());
 		}
 	}
 }
