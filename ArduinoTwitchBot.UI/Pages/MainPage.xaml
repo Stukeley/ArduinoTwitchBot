@@ -11,19 +11,27 @@
 
 	<StackPanel>
 
-		<Button x:Name="SettingsPageButton" Width="100" Height="40" Margin="10" Padding="0" Click="SettingsPageButton_Click" ToolTip="Click here to set up the bot." FontSize="18">
-			<StackPanel Orientation="Horizontal">
-				<materialDesign:PackIcon Kind="Gear" Width="20" Height="20" VerticalAlignment="Center"/>
-				<TextBlock Text="Settings" VerticalAlignment="Center" Margin="2,0,0,0"/>
-			</StackPanel>
-		</Button>
+		<Grid>
+			<Button x:Name="SettingsPageButton" Width="100" Height="40" Margin="10" Padding="0" Click="SettingsPageButton_Click" ToolTip="Click here to set up the bot" FontSize="18">
+				<StackPanel Orientation="Horizontal">
+					<materialDesign:PackIcon Kind="Gear" Width="20" Height="20" VerticalAlignment="Center"/>
+					<TextBlock Text="Settings" VerticalAlignment="Center" Margin="2,0,0,0"/>
+				</StackPanel>
+			</Button>
+
+			<Button x:Name="HistoryButton" Width="40" Height="40" VerticalAlignment="Top" Margin="0,10,50,0" HorizontalAlignment="Right" FontSize="16" Padding="0" Background="#dc2a97" ToolTip="Events history" Style="{StaticResource MaterialDesignIconButton}" Click="HistoryButton_Click">
+				<StackPanel Orientation="Horizontal">
+					<materialDesign:PackIcon Kind="History" Width="20" Height="20" VerticalAlignment="Center" Foreground="White"/>
+				</StackPanel>
+			</Button>
+		</Grid>
 
 		<StackPanel x:Name="FollowAlertPanel" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5,24,5,5">
 			<CheckBox x:Name="FollowAlertCheckbox" IsThreeState="False" ToolTip="Should follower events be announced?" FontSize="18">
 				<TextBlock Text="Follow alert" Margin="0,-2,0,0" FontSize="18" Width="120"/>
 			</CheckBox>
 
-			<TextBox x:Name="FollowAlertSignalBox" Width="80" Margin="20,0,0,0" materialDesign:HintAssist.Hint="Value" ToolTip="Enter a value that will be sent through the Serial Port." FontSize="18"/>
+			<TextBox x:Name="FollowAlertSignalBox" Width="80" Margin="20,0,0,0" materialDesign:HintAssist.Hint="Value" ToolTip="Enter a value that will be sent through the Serial Port" FontSize="18"/>
 
 			<ComboBox x:Name="FollowSignalTypeBox" Width="80" Margin="10,0,0,0" ToolTip="Should the given value be interpreted as an int, or a string?" FontSize="18">
 				<!-- Dynamically generated values -->
@@ -36,7 +44,7 @@
 				<TextBlock Text="Sub alert" Margin="0,-2,0,0" FontSize="18" Width="120"/>
 			</CheckBox>
 
-			<TextBox x:Name="SubAlertSignalBox" Width="80" Margin="20,0,0,0" materialDesign:HintAssist.Hint="Value" ToolTip="Enter a value that will be sent through the Serial Port." FontSize="18"/>
+			<TextBox x:Name="SubAlertSignalBox" Width="80" Margin="20,0,0,0" materialDesign:HintAssist.Hint="Value" ToolTip="Enter a value that will be sent through the Serial Port" FontSize="18"/>
 
 			<ComboBox x:Name="SubSignalTypeBox" Width="80" Margin="10,0,0,0" ToolTip="Should the given value be interpreted as an int, or a string?" FontSize="18">
 				<!-- Dynamically generated values -->
@@ -49,7 +57,7 @@
 				<TextBlock Text="Bits alert" Margin="0,-2,0,0" FontSize="18" Width="120"/>
 			</CheckBox>
 
-			<TextBox x:Name="BitsAlertSignalBox" Width="80" Margin="20,0,0,0" materialDesign:HintAssist.Hint="Value" ToolTip="Enter a value that will be sent through the Serial Port." FontSize="18"/>
+			<TextBox x:Name="BitsAlertSignalBox" Width="80" Margin="20,0,0,0" materialDesign:HintAssist.Hint="Value" ToolTip="Enter a value that will be sent through the Serial Port" FontSize="18"/>
 
 			<ComboBox x:Name="BitsSignalTypeBox" Width="80" Margin="10,0,0,0" ToolTip="Should the given value be interpreted as an int, or a string?" FontSize="18">
 				<!-- Dynamically generated values -->
@@ -62,7 +70,7 @@
 				<TextBlock Text="Raid alert" Margin="0,-2,0,0" FontSize="18" Width="120"/>
 			</CheckBox>
 
-			<TextBox x:Name="RaidAlertSignalBox" Width="80" Margin="20,0,0,0" materialDesign:HintAssist.Hint="Value" ToolTip="Enter a value that will be sent through the Serial Port." FontSize="18"/>
+			<TextBox x:Name="RaidAlertSignalBox" Width="80" Margin="20,0,0,0" materialDesign:HintAssist.Hint="Value" ToolTip="Enter a value that will be sent through the Serial Port" FontSize="18"/>
 
 			<ComboBox x:Name="RaidSignalTypeBox" Width="80" Margin="10,0,0,0" ToolTip="Should the given value be interpreted as an int, or a string?" FontSize="18">
 				<!-- Dynamically generated values -->
@@ -75,7 +83,7 @@
 				<TextBlock Text="Host alert" Margin="0,-2,0,0" FontSize="18" Width="120"/>
 			</CheckBox>
 
-			<TextBox x:Name="HostAlertSignalBox" Width="80" Margin="20,0,0,0" materialDesign:HintAssist.Hint="Value" ToolTip="Enter a value that will be sent through the Serial Port." FontSize="18"/>
+			<TextBox x:Name="HostAlertSignalBox" Width="80" Margin="20,0,0,0" materialDesign:HintAssist.Hint="Value" ToolTip="Enter a value that will be sent through the Serial Port" FontSize="18"/>
 
 			<ComboBox x:Name="HostSignalTypeBox" Width="80" Margin="10,0,0,0" ToolTip="Should the given value be interpreted as an int, or a string?" FontSize="18">
 				<!-- Dynamically generated values -->
@@ -84,21 +92,21 @@
 		</StackPanel>
 
 		<StackPanel x:Name="EmoteAlertPanel" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
-			<CheckBox x:Name="EmoteAlertCheckbox" IsThreeState="False" ToolTip="Should certain emotes in chat be announced? Make sure to edit the list of emotes, using the button to the right, before Connecting." Margin="39,0,0,0">
+			<CheckBox x:Name="EmoteAlertCheckbox" IsThreeState="False" ToolTip="Should certain emotes in chat be announced? Make sure to edit the list of emotes, using the button to the right, before Connecting" Margin="39,0,0,0">
 				<TextBlock Margin="0,-2,0,0" Text="Emote alert" FontSize="18" Width="120"/>
 			</CheckBox>
 
-			<TextBox x:Name="EmoteAlertSignalBox" Width="80" Margin="20,0,0,0" materialDesign:HintAssist.Hint="Value" ToolTip="Enter a value that will be sent through the Serial Port." FontSize="18"/>
+			<TextBox x:Name="EmoteAlertSignalBox" Width="80" Margin="20,0,0,0" materialDesign:HintAssist.Hint="Value" ToolTip="Enter a value that will be sent through the Serial Port" FontSize="18"/>
 
 			<ComboBox x:Name="EmoteSignalTypeBox" Width="80" Margin="10,0,0,0" ToolTip="Should the given value be interpreted as an int, or a string?" FontSize="18">
 				<!-- Dynamically generated values -->
 			</ComboBox>
 
-			<materialDesign:PackIcon x:Name="SetEmoteListButton" Kind="PencilCircle" Width="20" Height="20" Margin="20,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="Purple" ToolTip="Click here to create or edit the list of announced emotes." PreviewMouseUp="SetEmoteListButton_PreviewMouseUp" Cursor="Hand"/>
+			<materialDesign:PackIcon x:Name="SetEmoteListButton" Kind="PencilCircle" Width="20" Height="20" Margin="20,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="Purple" ToolTip="Click here to create or edit the list of announced emotes" PreviewMouseUp="SetEmoteListButton_PreviewMouseUp" Cursor="Hand"/>
 
 		</StackPanel>
 
-		<Button x:Name="ConnectButton" Width="100" Height="40" Margin="0,36,0,0" Padding="0" ToolTip="Connect the bot! (make sure that you filled in everything in the Settings page before clicking this)." FontSize="18" Click="ConnectButton_Click">
+		<Button x:Name="ConnectButton" Width="100" Height="40" Margin="0,36,0,0" Padding="0" ToolTip="Connect the bot! (make sure that you filled in everything in the Settings page before clicking this)" FontSize="18" Click="ConnectButton_Click">
 			<StackPanel Orientation="Horizontal">
 				<materialDesign:PackIcon Kind="Connection" Width="20" Height="20" VerticalAlignment="Center"/>
 

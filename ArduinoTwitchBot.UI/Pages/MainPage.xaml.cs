@@ -6,8 +6,6 @@ using System.Windows.Controls;
 
 namespace ArduinoTwitchBot.UI.Pages
 {
-	// TODO
-	// 1. Signals history
 	public partial class MainPage : Page
 	{
 		public MainPage()
@@ -187,6 +185,13 @@ namespace ArduinoTwitchBot.UI.Pages
 			SaveAlerts();
 
 			(Application.Current.MainWindow as MainWindow).PageFrame.Navigate(new EmotesPage());
+		}
+
+		private void HistoryButton_Click(object sender, RoutedEventArgs e)
+		{
+			SaveAlerts();
+
+			(Application.Current.MainWindow as MainWindow).PageFrame.Navigate(new HistoryPage());
 		}
 	}
 }

@@ -231,7 +231,7 @@ namespace ArduinoTwitchBot.Code
 			_client?.SendTopics(AccessToken);
 		}
 
-
+		// TODO! zły event, to jest host w drugą stronę
 		private void Client_OnHost(object sender, TwitchLib.PubSub.Events.OnHostArgs e)
 		{
 #if DEBUG
@@ -240,6 +240,7 @@ namespace ArduinoTwitchBot.Code
 			try
 			{
 				SerialPortHelper.SendMessage(PortName, Alerts[4].Signal, Alerts[4].SignalType);
+				//EventHistory.TwitchEvents.Add(new TwitchEvent(e.HostedChannel));
 			}
 			catch (Exception ex)
 			{
@@ -249,6 +250,7 @@ namespace ArduinoTwitchBot.Code
 			}
 		}
 
+		// TODO to chyba też
 		private void Client_OnRaidGo(object sender, TwitchLib.PubSub.Events.OnRaidGoArgs e)
 		{
 #if DEBUG
@@ -274,6 +276,7 @@ namespace ArduinoTwitchBot.Code
 			try
 			{
 				SerialPortHelper.SendMessage(PortName, Alerts[2].Signal, Alerts[2].SignalType);
+				EventHistory.TwitchEvents.Add(new TwitchEvent(e.Username, DateTime.Now, TwitchEventType.Bits));
 			}
 			catch (Exception ex)
 			{
@@ -291,6 +294,7 @@ namespace ArduinoTwitchBot.Code
 			try
 			{
 				SerialPortHelper.SendMessage(PortName, Alerts[1].Signal, Alerts[1].SignalType);
+				EventHistory.TwitchEvents.Add(new TwitchEvent(e.Subscription.Username, DateTime.Now, TwitchEventType.Sub));
 			}
 			catch (Exception ex)
 			{
@@ -308,6 +312,7 @@ namespace ArduinoTwitchBot.Code
 			try
 			{
 				SerialPortHelper.SendMessage(PortName, Alerts[0].Signal, Alerts[0].SignalType);
+				EventHistory.TwitchEvents.Add(new TwitchEvent(e.DisplayName, DateTime.Now, TwitchEventType.Follow));
 			}
 			catch (Exception ex)
 			{
