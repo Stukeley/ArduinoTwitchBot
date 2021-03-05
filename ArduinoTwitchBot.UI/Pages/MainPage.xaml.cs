@@ -8,6 +8,8 @@ namespace ArduinoTwitchBot.UI.Pages
 {
 	public partial class MainPage : Page
 	{
+		private string _botStatus;
+
 		public MainPage()
 		{
 			InitializeComponent();
@@ -88,10 +90,13 @@ namespace ArduinoTwitchBot.UI.Pages
 			// Create an array to keep track of Alerts easier.
 			var alerts = new Alert[6];
 
+			_botStatus = "Listening to: ";
+
 			// Validate data.
 			if (FollowAlertCheckbox.IsChecked.Value && ValidateText(FollowAlertSignalBox.Text))
 			{
 				alerts[0] = new Alert(true, FollowAlertSignalBox.Text, (SignalType)Enum.Parse(typeof(SignalType), FollowSignalTypeBox.Text));
+				_botStatus += "Follows ";
 			}
 			else
 			{
@@ -101,6 +106,7 @@ namespace ArduinoTwitchBot.UI.Pages
 			if (SubAlertCheckbox.IsChecked.Value && ValidateText(SubAlertSignalBox.Text))
 			{
 				alerts[1] = new Alert(true, SubAlertSignalBox.Text, (SignalType)Enum.Parse(typeof(SignalType), SubSignalTypeBox.Text));
+				_botStatus += "Subs ";
 			}
 			else
 			{
@@ -110,6 +116,7 @@ namespace ArduinoTwitchBot.UI.Pages
 			if (BitsAlertCheckbox.IsChecked.Value && ValidateText(BitsAlertSignalBox.Text))
 			{
 				alerts[2] = new Alert(true, BitsAlertSignalBox.Text, (SignalType)Enum.Parse(typeof(SignalType), BitsSignalTypeBox.Text));
+				_botStatus += "Bits ";
 			}
 			else
 			{
@@ -119,6 +126,7 @@ namespace ArduinoTwitchBot.UI.Pages
 			if (RaidAlertCheckbox.IsChecked.Value && ValidateText(RaidAlertSignalBox.Text))
 			{
 				alerts[3] = new Alert(true, RaidAlertSignalBox.Text, (SignalType)Enum.Parse(typeof(SignalType), RaidSignalTypeBox.Text));
+				_botStatus += "Raids ";
 			}
 			else
 			{
@@ -128,6 +136,7 @@ namespace ArduinoTwitchBot.UI.Pages
 			if (HostAlertCheckbox.IsChecked.Value && ValidateText(HostAlertSignalBox.Text))
 			{
 				alerts[4] = new Alert(true, HostAlertSignalBox.Text, (SignalType)Enum.Parse(typeof(SignalType), HostSignalTypeBox.Text));
+				_botStatus += "Hosts ";
 			}
 			else
 			{
@@ -137,6 +146,7 @@ namespace ArduinoTwitchBot.UI.Pages
 			if (EmoteAlertCheckbox.IsChecked.Value && ValidateText(EmoteAlertSignalBox.Text))
 			{
 				alerts[5] = new Alert(true, EmoteAlertSignalBox.Text, (SignalType)Enum.Parse(typeof(SignalType), EmoteSignalTypeBox.Text));
+				_botStatus += "Emotes ";
 			}
 			else
 			{
@@ -162,7 +172,7 @@ namespace ArduinoTwitchBot.UI.Pages
 			var alerts = UserSettings.Alerts;
 
 			// Connect the PubSub client if any (or all) of the 1-3 alerts have been selected.
-			// Else connect the Chat client.
+			// Connect the Chat client if any (or all) of the 4-6 alerts have been selected.
 			try
 			{
 				// Initialize the bot.
@@ -177,6 +187,8 @@ namespace ArduinoTwitchBot.UI.Pages
 				{
 					TwitchBot.Instance.ConnectChatClient(UserSettings.EmotesList);
 				}
+
+				IsBotRunningBlock.Text = _botStatus;
 			}
 			catch (Exception ex)
 			{

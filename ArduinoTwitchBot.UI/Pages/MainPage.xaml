@@ -106,7 +106,9 @@
 
 		</StackPanel>
 
-		<Button x:Name="ConnectButton" Width="100" Height="40" Margin="0,36,0,0" Padding="0" ToolTip="Connect the bot! (make sure that you filled in everything in the Settings page before clicking this)" FontSize="18" Click="ConnectButton_Click">
+		<TextBlock x:Name="IsBotRunningBlock" FontSize="16" HorizontalAlignment="Center" Margin="0,10,0,0" Visibility="Visible"/>
+
+		<Button x:Name="ConnectButton" Width="100" Height="40" Margin="0,9,0,0" Padding="0" ToolTip="Connect the bot! (make sure that you filled in everything in the Settings page before clicking this)" FontSize="18" Click="ConnectButton_Click">
 			<StackPanel Orientation="Horizontal">
 				<materialDesign:PackIcon Kind="Connection" Width="20" Height="20" VerticalAlignment="Center"/>
 

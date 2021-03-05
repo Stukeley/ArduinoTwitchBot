@@ -79,6 +79,8 @@ namespace ArduinoTwitchBot.Code
 			{
 				throw new Exception("Error - Alerts count was below 6. If this issue persists, please report it.");
 			}
+
+			// Write Alerts.
 			Alerts = alerts;
 		}
 
@@ -160,6 +162,10 @@ namespace ArduinoTwitchBot.Code
 			}
 
 			ChatClient.Connect();
+
+#if DEBUG
+			Trace.WriteLine("PubSub Client connected!");
+#endif
 		}
 
 		// Disconnect the ClientChat (Emote alerts).
@@ -188,7 +194,7 @@ namespace ArduinoTwitchBot.Code
 				}
 				else
 				{
-					throw new Exception("User of the given name not found");
+					throw new Exception("User of the given name not found.");
 				}
 			}
 			catch (Exception ex)
