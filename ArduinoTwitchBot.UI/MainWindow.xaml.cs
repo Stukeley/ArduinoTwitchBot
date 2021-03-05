@@ -10,6 +10,7 @@ namespace ArduinoTwitchBot.UI
 	// TODO:
 	// 2. inny kolor alternatywnego przycisku?
 	// 3. MaterialDesign cards?
+	// 4. code cleanup!!!
 	public partial class MainWindow : Window
 	{
 		private readonly PaletteHelper _paletteHelper = new PaletteHelper();
@@ -55,7 +56,7 @@ namespace ArduinoTwitchBot.UI
 			}
 
 			// Disconnect both bots (if they are running).
-			TwitchBot.Instance.Disconnect();
+			TwitchBot.Instance.DisconnectPubSubClient();
 			TwitchBot.Instance.DisconnectChatClient();
 
 			base.OnClosing(e);

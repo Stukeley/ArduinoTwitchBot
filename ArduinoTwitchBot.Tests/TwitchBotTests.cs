@@ -10,72 +10,12 @@ namespace ArduinoTwitchBot.Tests
 	{
 		private TwitchBot _twitchBot;
 
-		[SetUp]
-		public void SetUp()
-		{
-			_twitchBot = new TwitchBot()
-			{
-				ClientId = Properties.Resources.ClientId,
-				AccessToken = Properties.Resources.AccessToken
-			};
-		}
-
 		[Test]
-		public void GetChannelId_ValidResponse_ApiNotNull()
+		public void InitializeBot_ThrowsWhenParametersNull()
 		{
-			var channelName = "Stukeleyak";
-			var result = _twitchBot.GetChannelId(channelName).Result;
-
-			// ID for user of name Stukeleyak
-			var expected = "81452434";
-
-			Assert.AreEqual(expected, result);
-			Assert.IsNotNull(_twitchBot._api);
-		}
-
-		[Test]
-		public void Connect_NoExceptionThrown_ClientNotNull()
-		{
-			var channelName = "Stukeleyak";
-			var portName = "COM3";
-
-			var alerts = new Alert[6]
-			{
-				new Alert(true, "Follow"),
-				new Alert(true, "Sub"),
-				new Alert(true, "Bits"),
-				new Alert(false),
-				new Alert(true, "Raid"),
-				new Alert(false)
-			};
-
-			Assert.DoesNotThrow(() => _twitchBot.Connect(Properties.Resources.ClientId, Properties.Resources.AccessToken, channelName, portName, alerts));
-			Assert.IsNotNull(_twitchBot.ClientId);
-			Assert.IsNotNull(_twitchBot.AccessToken);
-			Assert.IsNotNull(_twitchBot.PortName);
-			Assert.IsNotNull(_twitchBot.Alerts);
-			Assert.IsNotNull(_twitchBot._client);
-		}
-
-		[Test]
-		public void Connect_ExceptionThrownWhenParametersNull()
-		{
-			var channelName = "Stukeleyak";
-			var portName = "COM3";
-
-			var alerts = new Alert[6]
-			{
-				new Alert(true, "Follow"),
-				new Alert(true, "Sub"),
-				new Alert(true, "Bits"),
-				new Alert(false),
-				new Alert(true, "Raid"),
-				new Alert(false)
-			};
-
 			try
 			{
-				_twitchBot.Connect("", null, channelName, portName, alerts);
+				_twitchBot.InitializeBot("", null, "Stukeleyak", "COM3", new Alert[5]);
 				Assert.Fail("An exception should have been thrown - null parameters.");
 			}
 			catch (Exception)
@@ -85,23 +25,81 @@ namespace ArduinoTwitchBot.Tests
 		}
 
 		[Test]
-		public void Disconnect_NoExceptionThrown()
+		public void InitializeBot_DoesNotThrow_FieldsNotNull()
 		{
-			Assert.DoesNotThrow(() => _twitchBot.Disconnect());
+			_twitchBot = new TwitchBot();
+
+			var alerts = new Alert[6]
+			{
+				new Alert(true, "Follow"),
+				new Alert(true, "Sub"),
+				new Alert(true, "Bits"),
+				new Alert(false),
+				new Alert(true, "Raid"),
+				new Alert(false)
+			};
+
+			Assert.DoesNotThrow(() => _twitchBot.InitializeBot(Properties.Resources.ClientId, Properties.Resources.AccessToken, "Stukeleyak", "COM3", alerts));
+			Assert.IsNotNull(_twitchBot.ClientId);
+			Assert.IsNotNull(_twitchBot.AccessToken);
+			Assert.IsNotNull(_twitchBot.ChannelName);
+			Assert.IsNotNull(_twitchBot.PortName);
+			Assert.IsNotNull(_twitchBot.Alerts);
+		}
+
+		[SetUp]
+		public void SetUp()
+		{
+			// Set up for all other tests.
+			_twitchBot = new TwitchBot();
+
+			var alerts = new Alert[6]
+			{
+				new Alert(true, "Follow"),
+				new Alert(true, "Sub"),
+				new Alert(true, "Bits"),
+				new Alert(false),
+				new Alert(true, "Raid"),
+				new Alert(false)
+			};
+
+			_twitchBot.InitializeBot(Properties.Resources.ClientId, Properties.Resources.AccessToken, "Stukeleyak", "COM3", alerts);
+		}
+
+		[Test]
+		public void GetChannelId_ValidResponse_ApiNotNull()
+		{
+			var channelName = "Stukeleyak";
+			var result = _twitchBot.GetChannelId(channelName).Result;
+
+			// ID for user of name Stukeleyak.
+			var expected = "81452434";
+
+			Assert.AreEqual(expected, result);
+			Assert.IsNotNull(_twitchBot.API);
+		}
+
+		[Test]
+		public void Connect_NoExceptionThrown_ClientNotNull()
+		{
+			Assert.DoesNotThrow(() => _twitchBot.ConnectPubSubClient());
+			Assert.IsNotNull(_twitchBot.PubSubClient);
+		}
+
+
+		[Test]
+		public void DisconnectPubSubClient_NoExceptionThrown()
+		{
+			Assert.DoesNotThrow(() => _twitchBot.DisconnectPubSubClient());
 		}
 
 		[Test]
 		public void ConnectChatClient_NoExceptionThrown_ChatClientNotNull()
 		{
-			var channelName = "Stukeleyak";
-			var portName = "COM3";
-			var alert = new Alert(true, "Test");
 			var emotesList = new List<string>() { "Kappa" };
 
-			Assert.DoesNotThrow(() => _twitchBot.ConnectChatClient(Properties.Resources.AccessToken, channelName, portName, alert, emotesList));
-			Assert.IsNotNull(_twitchBot._chatClient);
-			Assert.IsNotNull(_twitchBot.AccessToken);
-			Assert.IsNotNull(_twitchBot.PortName);
+			Assert.DoesNotThrow(() => _twitchBot.ConnectChatClient(emotesList));
+			Assert.IsNotNull(_twitchBot.ChatClient);
 			Assert.IsNotNull(_twitchBot.EmotesList);
 		}
 

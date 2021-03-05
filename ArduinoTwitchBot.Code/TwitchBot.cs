@@ -32,109 +32,215 @@ namespace ArduinoTwitchBot.Code
 			Alerts = new Alert[6];
 		}
 
+		// Public ClientId.
 		public string ClientId { get; set; }
+
+		// Private AccessToken - never to be shown anywhere.
 		public string AccessToken { get; set; }
+
+		// Port through which the signals will be sent.
 		public string PortName { get; set; }
-		// Follows, subs, bits, raids, hosts and emotes, in this order.
+
+		// Channel name to which the bot will connect.
+		public string ChannelName { get; set; }
+
+		// Follows, subs, bits, raids, hosts and emotes, in this order. Should always have a Length of 6.
 		public Alert[] Alerts { get; set; }
 
-		// API to get Channel Id from username.
-		public TwitchAPI _api { get; private set; }
-
-		// Client for listening to alerts (follows, subs, raids, hosts, bits).
-		public TwitchPubSub _client { get; private set; }
-
-		// Experimental client for listening to chat messages
-		public TwitchClient _chatClient { get; private set; }
+		// List of emotes to look for in chat.
 		public List<string> EmotesList { get; set; }
 
-		// Connect the PubSub client.
-		public async void Connect(string clientId, string accessToken, string channelName, string portName, Alert[] alerts)
+		// API to get Channel Id from username.
+		public TwitchAPI API { get; private set; }
+
+		// Client for listening to alerts (follows, subs, bits).
+		public TwitchPubSub PubSubClient { get; private set; }
+
+		// Client for listening to alerts (raids, hosts, emote events).
+		public TwitchClient ChatClient { get; private set; }
+
+		// This method has to be called first, before connecting either of the clients.
+		public void InitializeBot(string clientId, string accessToken, string channelName, string portName, Alert[] alerts)
 		{
 			// Check if the needed parameters are provided.
 			if (string.IsNullOrEmpty(clientId) || string.IsNullOrEmpty(accessToken) || string.IsNullOrEmpty(channelName) || string.IsNullOrEmpty(portName))
 			{
-				throw new Exception("One of the required parameters was not provided. Make sure to specify: ClientId, AccessToken, ChannelName and PortName.");
+				throw new Exception("One of the required parameters was not provided. Make sure to specify: ClientId, AccessToken, ChannelName and PortName. The bot was not connected.");
 			}
 
 			// Write ClientId and AccessToken.
 			ClientId = clientId;
 			AccessToken = accessToken;
-			Alerts = alerts;
+			ChannelName = channelName;
 			PortName = portName;
 
-			_client = new TwitchPubSub();
+			// Make sure that alerts always has a Count of 6.
+			if (alerts.Length < 6)
+			{
+				throw new Exception("Error - Alerts count was below 6. If this issue persists, please report it.");
+			}
+			Alerts = alerts;
+		}
 
-			string channelId = await GetChannelId(channelName);
+		#region PubSubClient
+		// Connect the PubSub client.
+		public async void ConnectPubSubClient()
+		{
+			PubSubClient = new TwitchPubSub();
+
+			string channelId = await GetChannelId(ChannelName);
 
 			// Listen to events.
-			_client.OnPubSubServiceConnected += Client_OnPubSubServiceConnected;
-			_client.OnListenResponse += Client_OnListenResponse;
+			PubSubClient.OnPubSubServiceConnected += Client_OnPubSubServiceConnected;
+			PubSubClient.OnListenResponse += Client_OnListenResponse;
 
-			if (alerts[0])
+			if (Alerts[0])
 			{
-				_client.ListenToFollows(channelId);
-				_client.OnFollow += this.Client_OnFollow;
+				// Follow alert.
+				PubSubClient.ListenToFollows(channelId);
+				PubSubClient.OnFollow += Client_OnFollow;
 			}
 
-			if (alerts[1])
+			if (Alerts[1])
 			{
-				_client.ListenToSubscriptions(channelId);
-				_client.OnChannelSubscription += this.Client_OnChannelSubscription;
+				// Sub alert.
+				PubSubClient.ListenToSubscriptions(channelId);
+				PubSubClient.OnChannelSubscription += Client_OnChannelSubscription;
 			}
 
-			if (alerts[2])
+			if (Alerts[2])
 			{
-				_client.ListenToBitsEvents(channelId);
-				_client.OnBitsReceived += this.Client_OnBitsReceived;
+				// Bits alert.
+				PubSubClient.ListenToBitsEvents(channelId);
+				PubSubClient.OnBitsReceived += Client_OnBitsReceived;
 			}
 
-			if (alerts[3])
-			{
-				_client.ListenToRaid(channelId);
-				_client.OnRaidGo += this.Client_OnRaidGo;
-			}
-
-			if (alerts[4])
-			{
-				_client.ListenToRaid(channelId);
-				_client.OnHost += this.Client_OnHost;
-			}
-
-			// ChatClient is connected from a different place.
-
-			_client.Connect();
+			PubSubClient.Connect();
 		}
 
 		// Disconnect the PubSub client.
-		public void Disconnect()
+		public void DisconnectPubSubClient()
 		{
-			_client?.Disconnect();
+			PubSubClient?.Disconnect();
 		}
+		#endregion
 
-		// Connect the ClientChat (Emote alerts).
-		public void ConnectChatClient(string accessToken, string channelName, string portName, Alert emoteAlert, List<string> emotesList, string botName = "ArduinoBot")
+		#region ChatClient
+		// Connect the ClientChat (Host, Raid, Emote alerts).
+		public void ConnectChatClient(List<string> emotesList = null, string botName = "ArduinoBot")
 		{
-			// Make sure EmotesList has been filled up by the user.
-			if (EmotesList?.Count == 0)
+			EmotesList = emotesList;
+
+			ChatClient = new TwitchClient();
+			var credentials = new ConnectionCredentials(botName, AccessToken);
+			ChatClient.Initialize(credentials, ChannelName);
+
+			ChatClient.OnJoinedChannel += ChatClient_OnJoinedChannel;
+			ChatClient.OnConnected += ChatClient_OnConnected;
+
+			if (Alerts[3])
 			{
-				throw new Exception("Emote list is empty - unable to listen to emotes sent in chat.");
+				// Raid alert.
+				ChatClient.OnRaidNotification += ChatClient_OnRaidNotification;
+			}
+			if (Alerts[4])
+			{
+				// Host alert.
+				ChatClient.OnBeingHosted += ChatClient_OnBeingHosted;
+			}
+			if (Alerts[5])
+			{
+				// Emote alert.
+				// Make sure EmotesList has been filled up by the user.
+				if (EmotesList?.Count == 0)
+				{
+					throw new Exception("Emote list is empty - unable to listen to emotes sent in chat. The bot was not connected.");
+				}
+				ChatClient.OnMessageReceived += ChatClient_OnMessageReceived;
 			}
 
-			AccessToken = accessToken;
-			EmotesList = emotesList;
-			PortName = portName;
-			Alerts[5] = emoteAlert;
+			ChatClient.Connect();
+		}
 
-			_chatClient = new TwitchClient();
-			var credentials = new ConnectionCredentials(botName, accessToken);
-			_chatClient.Initialize(credentials, channelName);
+		// Disconnect the ClientChat (Emote alerts).
+		public void DisconnectChatClient()
+		{
+			ChatClient?.Disconnect();
+		}
+		#endregion
 
-			_chatClient.OnJoinedChannel += ChatClient_OnJoinedChannel;
-			_chatClient.OnMessageReceived += ChatClient_OnMessageReceived;
-			_chatClient.OnConnected += ChatClient_OnConnected; ;
+		public async Task<string> GetChannelId(string channelName)
+		{
+			string channelId = "";
 
-			_chatClient.Connect();
+			try
+			{
+				API = new TwitchAPI();
+
+				API.Settings.ClientId = ClientId;
+				API.Settings.AccessToken = AccessToken;
+
+				var users = await API.Helix.Users.GetUsersAsync(logins: new List<string>() { channelName });
+
+				if (users.Users.Length > 0)
+				{
+					channelId = users.Users[0].Id;
+				}
+				else
+				{
+					throw new Exception("User of the given name not found");
+				}
+			}
+			catch (Exception ex)
+			{
+#if DEBUG
+				Trace.WriteLine(ex.Message);
+#endif
+			}
+
+#if DEBUG
+			Trace.WriteLine($"ChannelId for {channelName}: {channelId}");
+#endif
+
+			return channelId;
+		}
+
+		#region Events
+
+		private void ChatClient_OnBeingHosted(object sender, TwitchLib.Client.Events.OnBeingHostedArgs e)
+		{
+#if DEBUG
+			Trace.WriteLine("Host received!");
+#endif
+			try
+			{
+				SerialPortHelper.SendMessage(PortName, Alerts[4].Signal, Alerts[4].SignalType);
+				EventHistory.TwitchEvents.Add(new TwitchEvent(e.BeingHostedNotification.HostedByChannel, DateTime.Now, TwitchEventType.Host));
+			}
+			catch (Exception ex)
+			{
+#if DEBUG
+				Trace.WriteLine(ex.Message);
+#endif
+			}
+		}
+
+		private void ChatClient_OnRaidNotification(object sender, TwitchLib.Client.Events.OnRaidNotificationArgs e)
+		{
+#if DEBUG
+			Trace.WriteLine("Raid received!");
+#endif
+			try
+			{
+				SerialPortHelper.SendMessage(PortName, Alerts[3].Signal, Alerts[3].SignalType);
+				EventHistory.TwitchEvents.Add(new TwitchEvent(e.RaidNotification.DisplayName, DateTime.Now, TwitchEventType.Raid));
+			}
+			catch (Exception ex)
+			{
+#if DEBUG
+				Trace.WriteLine(ex.Message);
+#endif
+			}
 		}
 
 		private void ChatClient_OnConnected(object sender, TwitchLib.Client.Events.OnConnectedArgs e)
@@ -173,48 +279,6 @@ namespace ArduinoTwitchBot.Code
 #endif
 		}
 
-		// Disconnect the ClientChat (Emote alerts).
-		public void DisconnectChatClient()
-		{
-			_chatClient?.Disconnect();
-		}
-
-		public async Task<string> GetChannelId(string channelName)
-		{
-			string channelId = "";
-
-			try
-			{
-				_api = new TwitchAPI();
-
-				_api.Settings.ClientId = ClientId;
-				_api.Settings.AccessToken = AccessToken;
-
-				var users = await _api.Helix.Users.GetUsersAsync(logins: new List<string>() { channelName });
-
-				if (users.Users.Length > 0)
-				{
-					channelId = users.Users[0].Id;
-				}
-				else
-				{
-					throw new Exception("User of the given name not found");
-				}
-			}
-			catch (Exception ex)
-			{
-#if DEBUG
-				Trace.WriteLine(ex.Message);
-#endif
-			}
-
-#if DEBUG
-			Trace.WriteLine($"ChannelId for {channelName}: {channelId}");
-#endif
-
-			return channelId;
-		}
-
 		private void Client_OnListenResponse(object sender, TwitchLib.PubSub.Events.OnListenResponseArgs e)
 		{
 			if (!e.Successful)
@@ -228,44 +292,7 @@ namespace ArduinoTwitchBot.Code
 		private void Client_OnPubSubServiceConnected(object sender, EventArgs e)
 		{
 			// Not sure what this is for.
-			_client?.SendTopics(AccessToken);
-		}
-
-		// TODO! zły event, to jest host w drugą stronę
-		private void Client_OnHost(object sender, TwitchLib.PubSub.Events.OnHostArgs e)
-		{
-#if DEBUG
-			Trace.WriteLine("Host received!");
-#endif
-			try
-			{
-				SerialPortHelper.SendMessage(PortName, Alerts[4].Signal, Alerts[4].SignalType);
-				//EventHistory.TwitchEvents.Add(new TwitchEvent(e.HostedChannel));
-			}
-			catch (Exception ex)
-			{
-#if DEBUG
-				Trace.WriteLine(ex.Message);
-#endif
-			}
-		}
-
-		// TODO to chyba też
-		private void Client_OnRaidGo(object sender, TwitchLib.PubSub.Events.OnRaidGoArgs e)
-		{
-#if DEBUG
-			Trace.WriteLine("Raid received!");
-#endif
-			try
-			{
-				SerialPortHelper.SendMessage(PortName, Alerts[3].Signal, Alerts[3].SignalType);
-			}
-			catch (Exception ex)
-			{
-#if DEBUG
-				Trace.WriteLine(ex.Message);
-#endif
-			}
+			PubSubClient?.SendTopics(AccessToken);
 		}
 
 		private void Client_OnBitsReceived(object sender, TwitchLib.PubSub.Events.OnBitsReceivedArgs e)
@@ -321,5 +348,7 @@ namespace ArduinoTwitchBot.Code
 #endif
 			}
 		}
+
+		#endregion
 	}
 }
