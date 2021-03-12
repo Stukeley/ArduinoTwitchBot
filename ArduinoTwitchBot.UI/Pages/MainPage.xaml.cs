@@ -189,6 +189,9 @@ namespace ArduinoTwitchBot.UI.Pages
 				}
 
 				IsBotRunningBlock.Text = _botStatus;
+
+				DisconnectButton.Visibility = Visibility.Visible;
+				ConnectButton.Visibility = Visibility.Collapsed;
 			}
 			catch (Exception ex)
 			{
@@ -208,6 +211,16 @@ namespace ArduinoTwitchBot.UI.Pages
 			SaveAlerts();
 
 			(Application.Current.MainWindow as MainWindow).PageFrame.Navigate(new HistoryPage());
+		}
+
+		private void DisconnectButton_Click(object sender, RoutedEventArgs e)
+		{
+			TwitchBot.Instance.DisconnectChatClient();
+			TwitchBot.Instance.DisconnectPubSubClient();
+
+			DisconnectButton.Visibility = Visibility.Collapsed;
+			ConnectButton.Visibility = Visibility.Visible;
+			IsBotRunningBlock.Text = "";
 		}
 	}
 }

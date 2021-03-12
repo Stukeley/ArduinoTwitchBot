@@ -11,7 +11,6 @@ namespace ArduinoTwitchBot.UI
 	// 2. inny kolor alternatywnego przycisku?
 	// 3. MaterialDesign cards?
 	// 4. code cleanup!!!
-	// 5. zmienić przycisk na disconnect?
 	public partial class MainWindow : Window
 	{
 		private readonly PaletteHelper _paletteHelper = new PaletteHelper();

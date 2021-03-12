@@ -115,6 +115,10 @@
 				<TextBlock Text="Connect" VerticalAlignment="Center" Margin="2,0,0,0"/>
 			</StackPanel>
 		</Button>
-		
+
+		<Button x:Name="DisconnectButton" Width="100" Height="40" Margin="0,9,0,0" Padding="0" ToolTip="Connect the bot! (make sure that you filled in everything in the Settings page before clicking this)" FontSize="18" Click="DisconnectButton_Click" Visibility="Collapsed">
+			<TextBlock Text="Disconnect" VerticalAlignment="Center" Margin="2,0,0,0"/>
+		</Button>
+
 	</StackPanel>
 </Page>
