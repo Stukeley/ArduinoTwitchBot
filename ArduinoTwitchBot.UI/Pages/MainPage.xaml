@@ -78,31 +78,12 @@
 
 		</StackPanel>
 
-		<StackPanel x:Name="HostAlertPanel" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
-			<CheckBox x:Name="HostAlertCheckbox" IsThreeState="False" ToolTip="Should host events be announced?">
-				<TextBlock Text="Host alert" Margin="0,-2,0,0" FontSize="18" Width="120"/>
-			</CheckBox>
-
-			<TextBox x:Name="HostAlertSignalBox" Width="80" Margin="20,0,0,0" materialDesign:HintAssist.Hint="Value" ToolTip="Enter a value that will be sent through the Serial Port" FontSize="18"/>
-
-			<ComboBox x:Name="HostSignalTypeBox" Width="80" Margin="10,0,0,0" ToolTip="Should the given value be interpreted as an int, or a string?" FontSize="18">
-				<!-- Dynamically generated values -->
-			</ComboBox>
-
-		</StackPanel>
-
 		<StackPanel x:Name="EmoteAlertPanel" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
-			<CheckBox x:Name="EmoteAlertCheckbox" IsThreeState="False" ToolTip="Should certain emotes in chat be announced? Make sure to edit the list of emotes, using the button to the right, before Connecting" Margin="39,0,0,0">
-				<TextBlock Margin="0,-2,0,0" Text="Emote alert" FontSize="18" Width="120"/>
+			<CheckBox x:Name="EmoteAlertCheckbox" IsThreeState="False" ToolTip="Should certain messages in chat be announced? Make sure to edit the list of chat messages, using the button to the right, before Connecting" Margin="39,0,0,0">
+				<TextBlock Margin="0,-2,0,0" Text="Chat message alert" FontSize="18" Width="160"/>
 			</CheckBox>
 
-			<TextBox x:Name="EmoteAlertSignalBox" Width="80" Margin="20,0,0,0" materialDesign:HintAssist.Hint="Value" ToolTip="Enter a value that will be sent through the Serial Port" FontSize="18"/>
-
-			<ComboBox x:Name="EmoteSignalTypeBox" Width="80" Margin="10,0,0,0" ToolTip="Should the given value be interpreted as an int, or a string?" FontSize="18">
-				<!-- Dynamically generated values -->
-			</ComboBox>
-
-			<materialDesign:PackIcon x:Name="SetEmoteListButton" Kind="PencilCircle" Width="20" Height="20" Margin="20,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="Purple" ToolTip="Click here to create or edit the list of announced emotes" PreviewMouseUp="SetEmoteListButton_PreviewMouseUp" Cursor="Hand"/>
+			<materialDesign:PackIcon x:Name="SetEmoteListButton" Kind="PencilCircle" Width="24" Height="24" Margin="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="Purple" ToolTip="Click here to create or edit the list of announced emotes" PreviewMouseUp="SetEmoteListButton_PreviewMouseUp" Cursor="Hand"/>
 
 		</StackPanel>
 

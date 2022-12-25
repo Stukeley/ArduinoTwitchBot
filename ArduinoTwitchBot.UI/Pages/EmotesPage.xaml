@@ -18,10 +18,25 @@
 			</StackPanel>
 		</Button>
 
-		<Border BorderThickness="1" BorderBrush="Gray" Width="450" Height="300" ToolTip="Enter emote names, separated with commas, semicolons or spaces. A signal will be sent if any of these emotes is used in chat" Margin="0,10,0,0">
-			<TextBox x:Name="EmotesTextBox" AcceptsReturn="True" FontSize="16" Padding="8" MaxLines="14" TextWrapping="Wrap">
-
-			</TextBox>
+		<Border BorderThickness="1" BorderBrush="Gray" Width="450" Height="300" Margin="0,10,0,0">
+			
+			<StackPanel>
+				<Button x:Name="AddNewChatMessageAlertButton" Width="220" Height="30" FontSize="14" Click="AddNewChatMessageAlertButton_OnClick" ToolTip="Add a new chat message trigger (it will send the specified alert when a message, for example an emote or a command, appears in chat)">
+					<Button.Content>
+						<StackPanel Orientation="Horizontal">
+							<materialDesign:PackIcon Kind="Plus" Width="24" Height="24" VerticalAlignment="Center"/>
+							<TextBlock Text="Add chat message trigger" VerticalAlignment="Center" Margin="2,0,0,0"/>
+						</StackPanel>
+					</Button.Content>
+				</Button>
+			
+				<ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden">
+					<StackPanel x:Name="ChatMessageEntriesPanel">
+						<!-- Dynamically generated StackPanels representing different chat messages -->
+					</StackPanel>
+				</ScrollViewer>
+			</StackPanel>
+			
 		</Border>
 	</StackPanel>
 </Page>

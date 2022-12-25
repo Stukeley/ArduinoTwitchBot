@@ -48,7 +48,7 @@ namespace ArduinoTwitchBot.Code
 		public Alert[] Alerts { get; set; }
 
 		// List of emotes to look for in chat.
-		public List<string> EmotesList { get; set; }
+		public List<ChatMessageEntry> ChatMessageEntries { get; set; }
 
 		// API to get Channel Id from username.
 		public TwitchAPI API { get; private set; }
@@ -129,9 +129,9 @@ namespace ArduinoTwitchBot.Code
 
 		#region ChatClient
 		// Connect the ClientChat (Host, Raid, Emote alerts).
-		public void ConnectChatClient(List<string> emotesList = null, string botName = "ArduinoBot")
+		public void ConnectChatClient(List<ChatMessageEntry> entries = null, string botName = "ArduinoBot")
 		{
-			EmotesList = emotesList;
+			ChatMessageEntries = entries;
 
 			ChatClient = new TwitchClient();
 			var credentials = new ConnectionCredentials(botName, AccessToken);
@@ -154,7 +154,7 @@ namespace ArduinoTwitchBot.Code
 			{
 				// Emote alert.
 				// Make sure EmotesList has been filled up by the user.
-				if (EmotesList?.Count == 0)
+				if (ChatMessageEntries?.Count == 0)
 				{
 					throw new Exception("Emote list is empty - unable to listen to emotes sent in chat. The bot was not connected.");
 				}
@@ -259,21 +259,24 @@ namespace ArduinoTwitchBot.Code
 		private void ChatClient_OnMessageReceived(object sender, TwitchLib.Client.Events.OnMessageReceivedArgs e)
 		{
 			// Check if message contains an emote that is on the list.
-			if (EmotesList.Any(x => e.ChatMessage.Message.Contains(x)))
+			foreach (var entry in ChatMessageEntries)
 			{
-				// Send a signal.
-				try
+				if (e.ChatMessage.Message.Contains(entry.Message))
 				{
+					// Send a signal.
+					try
+					{
 #if DEBUG
-					Trace.WriteLine("Emote received!");
+						Trace.WriteLine("Emote received!");
 #endif
-					SerialPortHelper.SendMessage(PortName, Alerts[5].Signal, Alerts[5].SignalType);
-				}
-				catch (Exception ex)
-				{
+						SerialPortHelper.SendMessage(PortName, entry.Alert.Signal, entry.Alert.SignalType);
+					}
+					catch (Exception ex)
+					{
 #if DEBUG
-					Trace.WriteLine(ex.Message);
+						Trace.WriteLine(ex.Message);
 #endif
+					}
 				}
 			}
 		}

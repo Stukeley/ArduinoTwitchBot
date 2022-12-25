@@ -16,35 +16,7 @@ namespace ArduinoTwitchBot.UI
 		public static string ChannelName { get; set; }
 		public static Alert[] Alerts { get; set; }
 		public static bool IsDarkTheme { get; set; }
-		public static List<string> EmotesList { get; set; }
-
-		#endregion
-
-		#region Serialized properties
-
-		public static bool FollowAlert { get; set; }
-		public static string FollowAlertValue { get; set; }
-		public static SignalType FollowAlertType { get; set; }
-
-		public static bool SubAlert { get; set; }
-		public static string SubAlertValue { get; set; }
-		public static SignalType SubAlertType { get; set; }
-
-		public static bool BitsAlert { get; set; }
-		public static string BitsAlertValue { get; set; }
-		public static SignalType BitsAlertType { get; set; }
-
-		public static bool RaidAlert { get; set; }
-		public static string RaidAlertValue { get; set; }
-		public static SignalType RaidAlertType { get; set; }
-
-		public static bool HostAlert { get; set; }
-		public static string HostAlertValue { get; set; }
-		public static SignalType HostAlertType { get; set; }
-
-		public static bool EmoteAlert { get; set; }
-		public static string EmoteAlertValue { get; set; }
-		public static SignalType EmoteAlertType { get; set; }
+		public static List<ChatMessageEntry> ChatMessageEntries { get; set; }
 
 		#endregion
 
@@ -77,18 +49,16 @@ namespace ArduinoTwitchBot.UI
 				Properties.Settings.Default["RaidAlertValue"] = Alerts[3].Signal;
 				Properties.Settings.Default["RaidAlertType"] = Alerts[3].SignalType.ToString();
 
+				// Host Alert is kept here for compatibility reasons, but it is not used anymore in the app.
+				// https://help.twitch.tv/s/article/how-to-use-host-mode?language=en_US#faq
 				Properties.Settings.Default["HostAlert"] = Alerts[4].IsActive;
 				Properties.Settings.Default["HostAlertValue"] = Alerts[4].Signal;
 				Properties.Settings.Default["HostAlertType"] = Alerts[4].SignalType.ToString();
 
 				Properties.Settings.Default["EmoteAlert"] = Alerts[5].IsActive;
-				Properties.Settings.Default["EmoteAlertValue"] = Alerts[5].Signal;
-				Properties.Settings.Default["EmoteAlertType"] = Alerts[5].SignalType.ToString();
 
 				// Save emotes list.
-				var stringCollection = new StringCollection();
-				stringCollection.AddRange(EmotesList.ToArray());
-				Properties.Settings.Default["EmotesList"] = stringCollection;
+				Properties.Settings.Default["ChatMessageEntries"] = ChatMessageEntry.Serialize(ChatMessageEntries);
 			}
 			catch (Exception)
 			{
@@ -125,21 +95,21 @@ namespace ArduinoTwitchBot.UI
 
 					new Alert(bool.Parse(Properties.Settings.Default["HostAlert"].ToString()), Properties.Settings.Default["HostAlertValue"].ToString(), (SignalType)Enum.Parse(typeof(SignalType),Properties.Settings.Default["HostAlertType"].ToString())),
 
-					new Alert(bool.Parse(Properties.Settings.Default["EmoteAlert"].ToString()), Properties.Settings.Default["EmoteAlertValue"].ToString(), (SignalType)Enum.Parse(typeof(SignalType),Properties.Settings.Default["EmoteAlertType"].ToString()))
+					new Alert(bool.Parse(Properties.Settings.Default["EmoteAlert"].ToString()))
 				};
 
 				// Load emotes list.
-				EmotesList = (Properties.Settings.Default["EmotesList"] as StringCollection).Cast<string>().ToList();
+				ChatMessageEntries = ChatMessageEntry.Deserialize(Properties.Settings.Default["ChatMessageEntries"].ToString());
 			}
 			catch (Exception)
 			{
 				// Some (or all) properties were not found.
-				PortName = PortName is null ? "" : PortName;
-				ClientId = ClientId is null ? "" : ClientId;
-				AccessToken = AccessToken is null ? "" : AccessToken;
-				ChannelName = ChannelName is null ? "" : ChannelName;
-				Alerts = Alerts is null ? Array.Empty<Alert>() : Alerts;
-				EmotesList = EmotesList is null ? new List<string>() : EmotesList;
+				PortName = PortName ?? "";
+				ClientId = ClientId ?? "";
+				AccessToken = AccessToken ?? "";
+				ChannelName = ChannelName ?? "";
+				Alerts = Alerts ?? Array.Empty<Alert>();
+				ChatMessageEntries = ChatMessageEntries ?? new List<ChatMessageEntry>();
 			}
 		}
 	}

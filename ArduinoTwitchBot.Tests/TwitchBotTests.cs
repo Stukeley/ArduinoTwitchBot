@@ -96,11 +96,14 @@ namespace ArduinoTwitchBot.Tests
 		[Test]
 		public void ConnectChatClient_NoExceptionThrown_ChatClientNotNull()
 		{
-			var emotesList = new List<string>() { "Kappa" };
+			var chatMessageEntries = new List<ChatMessageEntry>()
+			{
+				new ChatMessageEntry("123", "Kappa", "SIG", SignalType.String)
+			};
 
-			Assert.DoesNotThrow(() => _twitchBot.ConnectChatClient(emotesList));
+			Assert.DoesNotThrow(() => _twitchBot.ConnectChatClient(chatMessageEntries));
 			Assert.IsNotNull(_twitchBot.ChatClient);
-			Assert.IsNotNull(_twitchBot.EmotesList);
+			Assert.IsNotNull(_twitchBot.ChatMessageEntries);
 		}
 
 		[Test]

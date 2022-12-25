@@ -71,7 +71,7 @@
     <Setting Name="EmoteAlertType" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="EmotesList" Type="System.Collections.Specialized.StringCollection" Scope="User">
+    <Setting Name="ChatMessageEntries" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>

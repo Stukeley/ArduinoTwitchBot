@@ -37,13 +37,7 @@ namespace ArduinoTwitchBot.UI.Pages
 				RaidAlertSignalBox.Text = alerts[3].Signal;
 				RaidSignalTypeBox.SelectedItem = alerts[3].SignalType;
 
-				HostAlertCheckbox.IsChecked = alerts[4].IsActive;
-				HostAlertSignalBox.Text = alerts[4].Signal;
-				HostSignalTypeBox.SelectedItem = alerts[4].SignalType;
-
 				EmoteAlertCheckbox.IsChecked = alerts[5].IsActive;
-				EmoteAlertSignalBox.Text = alerts[5].Signal;
-				EmoteSignalTypeBox.SelectedItem = alerts[5].SignalType;
 			}
 
 			//Re - set application theme.
@@ -63,14 +57,8 @@ namespace ArduinoTwitchBot.UI.Pages
 			BitsSignalTypeBox.ItemsSource = values;
 			BitsSignalTypeBox.SelectedIndex = 0;
 
-			HostSignalTypeBox.ItemsSource = values;
-			HostSignalTypeBox.SelectedIndex = 0;
-
 			RaidSignalTypeBox.ItemsSource = values;
 			RaidSignalTypeBox.SelectedIndex = 0;
-
-			EmoteSignalTypeBox.ItemsSource = values;
-			EmoteSignalTypeBox.SelectedIndex = 0;
 		}
 
 		private bool ValidateText(string text)
@@ -132,21 +120,14 @@ namespace ArduinoTwitchBot.UI.Pages
 			{
 				alerts[3] = new Alert(false);
 			}
-
-			if (HostAlertCheckbox.IsChecked.Value && ValidateText(HostAlertSignalBox.Text))
+			
+			// For compatibility issues (for now), create an inactive Host alert.
+			alerts[4] = new Alert(false);
+			
+			if (EmoteAlertCheckbox.IsChecked.Value)
 			{
-				alerts[4] = new Alert(true, HostAlertSignalBox.Text, (SignalType)Enum.Parse(typeof(SignalType), HostSignalTypeBox.Text));
-				_botStatus += "Hosts ";
-			}
-			else
-			{
-				alerts[4] = new Alert(false);
-			}
-
-			if (EmoteAlertCheckbox.IsChecked.Value && ValidateText(EmoteAlertSignalBox.Text))
-			{
-				alerts[5] = new Alert(true, EmoteAlertSignalBox.Text, (SignalType)Enum.Parse(typeof(SignalType), EmoteSignalTypeBox.Text));
-				_botStatus += "Emotes ";
+				alerts[5] = new Alert(true);
+				_botStatus += "ChatMessages ";
 			}
 			else
 			{
@@ -185,7 +166,7 @@ namespace ArduinoTwitchBot.UI.Pages
 
 				if (alerts.Skip(3).Any(x => x.IsActive))
 				{
-					TwitchBot.Instance.ConnectChatClient(UserSettings.EmotesList);
+					TwitchBot.Instance.ConnectChatClient(UserSettings.ChatMessageEntries);
 				}
 
 				IsBotRunningBlock.Text = _botStatus;
