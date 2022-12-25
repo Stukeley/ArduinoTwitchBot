@@ -83,7 +83,7 @@
 				<TextBlock Margin="0,-2,0,0" Text="Chat message alert" FontSize="18" Width="160"/>
 			</CheckBox>
 
-			<materialDesign:PackIcon x:Name="SetEmoteListButton" Kind="PencilCircle" Width="24" Height="24" Margin="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="Purple" ToolTip="Click here to create or edit the list of announced emotes" PreviewMouseUp="SetEmoteListButton_PreviewMouseUp" Cursor="Hand"/>
+			<materialDesign:PackIcon x:Name="SetEmoteListButton" Kind="PencilCircle" Width="24" Height="24" Margin="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="Purple" ToolTip="Click here to create or edit the list of announced chat messages" PreviewMouseUp="SetEmoteListButton_PreviewMouseUp" Cursor="Hand"/>
 
 		</StackPanel>
 

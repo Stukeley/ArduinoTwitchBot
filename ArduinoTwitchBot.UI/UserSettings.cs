@@ -6,6 +6,8 @@ using System.Linq;
 
 namespace ArduinoTwitchBot.UI
 {
+	using Pages;
+
 	public static class UserSettings
 	{
 		#region General properties
@@ -100,6 +102,7 @@ namespace ArduinoTwitchBot.UI
 
 				// Load emotes list.
 				ChatMessageEntries = ChatMessageEntry.Deserialize(Properties.Settings.Default["ChatMessageEntries"].ToString());
+				EmotesPage.ChatMessages = ChatMessageEntries;
 			}
 			catch (Exception)
 			{

@@ -17,7 +17,13 @@ public partial class EmotesPage : Page
 	{
 		InitializeComponent();
 
-		ChatMessages = UserSettings.ChatMessageEntries;
+		ChatMessages = ChatMessages ?? new List<ChatMessageEntry>();
+		
+		foreach (var chatMessageEntry in ChatMessages)
+		{
+			var panel = GenerateChatMessagePanel(chatMessageEntry.Message, chatMessageEntry.Alert.Signal, chatMessageEntry.Alert.SignalType);
+			ChatMessageEntriesPanel.Children.Add(panel);
+		}
 	}
 
 	public void SaveEmotes()
@@ -37,6 +43,8 @@ public partial class EmotesPage : Page
 				
 			ChatMessages.Add(new ChatMessageEntry(id, chatMessage, signal, signalType));
 		}
+
+		UserSettings.ChatMessageEntries = ChatMessages;
 	}
 
 	private void MainPageButton_Click(object sender, RoutedEventArgs e)
@@ -52,7 +60,7 @@ public partial class EmotesPage : Page
 		ChatMessageEntriesPanel.Children.Add(panel);
 	}
 
-	private StackPanel GenerateChatMessagePanel()
+	private StackPanel GenerateChatMessagePanel(string chatMessage = null, string signal = null, SignalType signalType = default)
 	{
 		var guid = Guid.NewGuid().ToString("N");
 
@@ -95,7 +103,6 @@ public partial class EmotesPage : Page
 			
 		var values = Enum.GetValues(typeof(SignalType)).Cast<SignalType>().ToList();
 		chatMessageSignalTypeBox.ItemsSource = values;
-		chatMessageSignalTypeBox.SelectedIndex = 0;
 
 		var chatMessageDeleteEntryButton = new Button()
 		{
@@ -117,6 +124,18 @@ public partial class EmotesPage : Page
 		};
 			
 		chatMessageDeleteEntryButton.Content = icon;
+		
+		if (chatMessage != null)
+		{
+			chatMessageBox.Text = chatMessage;
+		}
+		
+		if (signal != null)
+		{
+			chatMessageAlertSignalBox.Text = signal;
+		}
+		
+		chatMessageSignalTypeBox.SelectedIndex = (int)signalType;
 
 		panel.Children.Add(chatMessageBox);
 		panel.Children.Add(chatMessageAlertSignalBox);

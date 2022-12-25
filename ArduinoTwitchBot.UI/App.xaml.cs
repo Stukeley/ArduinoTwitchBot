@@ -1,13 +1,12 @@
-﻿using System.Windows;
+﻿namespace ArduinoTwitchBot.UI;
 
-namespace ArduinoTwitchBot.UI
+using System.Windows;
+
+public partial class App : Application
 {
-	public partial class App : Application
+	private void Application_Startup(object sender, StartupEventArgs e)
 	{
-		private void Application_Startup(object sender, StartupEventArgs e)
-		{
-			// Load UserSettings.
-			UserSettings.LoadUserSettings();
-		}
+		// Load UserSettings.
+		UserSettings.LoadUserSettings();
 	}
 }
