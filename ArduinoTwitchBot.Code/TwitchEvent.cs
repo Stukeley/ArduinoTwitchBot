@@ -1,18 +1,17 @@
-﻿using System;
+﻿namespace ArduinoTwitchBot.Code;
 
-namespace ArduinoTwitchBot.Code
+using System;
+
+public class TwitchEvent
 {
-	public class TwitchEvent
-	{
-		public string Username { get; set; }
-		public DateTime EventTime { get; set; }
-		public TwitchEventType EventType { get; set; }
+	public string Username { get; set; }
+	public DateTime EventTime { get; set; }
+	public TwitchEventType EventType { get; set; }
 
-		public TwitchEvent(string username, DateTime eventTime, TwitchEventType eventType)
-		{
-			Username = username;
-			EventTime = eventTime;
-			EventType = eventType;
-		}
+	public TwitchEvent(string username, DateTime eventTime, TwitchEventType eventType)
+	{
+		Username = username;
+		EventTime = eventTime;
+		EventType = eventType;
 	}
 }

@@ -1,15 +1,14 @@
-﻿using System.Windows;
+﻿namespace ArduinoTwitchBot.UI;
+
+using System.Windows;
 using System.Windows.Controls;
 
-namespace ArduinoTwitchBot.UI
+public partial class PopupWindow : Window
 {
-	public partial class PopupWindow : Window
+	public PopupWindow(Page content)
 	{
-		public PopupWindow(Page content)
-		{
-			InitializeComponent();
+		InitializeComponent();
 
-			this.PageFrame.Content = content;
-		}
+		this.PageFrame.Content = content;
 	}
 }

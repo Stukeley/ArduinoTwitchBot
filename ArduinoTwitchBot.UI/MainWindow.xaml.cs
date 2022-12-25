@@ -1,65 +1,60 @@
-﻿using ArduinoTwitchBot.Code;
-using ArduinoTwitchBot.UI.Pages;
+﻿namespace ArduinoTwitchBot.UI;
+
+using Code;
+using Pages;
 using MaterialDesignThemes.Wpf;
 using System;
 using System.ComponentModel;
 using System.Windows;
 
-namespace ArduinoTwitchBot.UI
+public partial class MainWindow : Window
 {
-	// TODO:
-	// 2. inny kolor alternatywnego przycisku?
-	// 3. MaterialDesign cards?
-	// 4. code cleanup!!!
-	public partial class MainWindow : Window
+	private readonly PaletteHelper _paletteHelper = new PaletteHelper();
+
+	public MainWindow()
 	{
-		private readonly PaletteHelper _paletteHelper = new PaletteHelper();
+		InitializeComponent();
+	}
 
-		public MainWindow()
+	public void ChangeApplicationTheme(bool isDark)
+	{
+		// Switch theme based on the IsDark property.
+		var theme = _paletteHelper.GetTheme();
+		var baseTheme = isDark ? new MaterialDesignDarkTheme() : (IBaseTheme)new MaterialDesignLightTheme();
+		theme.SetBaseTheme(baseTheme);
+		_paletteHelper.SetTheme(theme);
+	}
+
+	protected override void OnClosing(CancelEventArgs e)
+	{
+		// Check what the current page is, and save its contents.
+		if (this.PageFrame.Content is MainPage mainPage)
 		{
-			InitializeComponent();
+			mainPage.SaveAlerts();
+		}
+		else if (this.PageFrame.Content is SettingsPage settingsPage)
+		{
+			settingsPage.SaveSettings();
+		}
+		else if (this.PageFrame.Content is EmotesPage emotesPage)
+		{
+			emotesPage.SaveEmotes();
 		}
 
-		public void ChangeApplicationTheme(bool isDark)
+		// Save user settings before quitting.
+		try
 		{
-			// Switch theme based on the IsDark property.
-			var theme = _paletteHelper.GetTheme();
-			var baseTheme = isDark ? new MaterialDesignDarkTheme() : (IBaseTheme)new MaterialDesignLightTheme();
-			theme.SetBaseTheme(baseTheme);
-			_paletteHelper.SetTheme(theme);
+			UserSettings.SaveUserSettings();
+		}
+		catch (Exception ex)
+		{
+			MessageBox.Show($"{ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 		}
 
-		protected override void OnClosing(CancelEventArgs e)
-		{
-			// Check what the current page is, and save its contents.
-			if (this.PageFrame.Content is MainPage mainPage)
-			{
-				mainPage.SaveAlerts();
-			}
-			else if (this.PageFrame.Content is SettingsPage settingsPage)
-			{
-				settingsPage.SaveSettings();
-			}
-			else if (this.PageFrame.Content is EmotesPage emotesPage)
-			{
-				emotesPage.SaveEmotes();
-			}
+		// Disconnect both bots (if they are running).
+		TwitchBot.Instance.DisconnectPubSubClient();
+		TwitchBot.Instance.DisconnectChatClient();
 
-			// Save user settings before quitting.
-			try
-			{
-				UserSettings.SaveUserSettings();
-			}
-			catch (Exception ex)
-			{
-				MessageBox.Show($"{ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-			}
-
-			// Disconnect both bots (if they are running).
-			TwitchBot.Instance.DisconnectPubSubClient();
-			TwitchBot.Instance.DisconnectChatClient();
-
-			base.OnClosing(e);
-		}
+		base.OnClosing(e);
 	}
 }

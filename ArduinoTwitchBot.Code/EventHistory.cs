@@ -1,14 +1,13 @@
-﻿using System.Collections.ObjectModel;
+﻿namespace ArduinoTwitchBot.Code;
 
-namespace ArduinoTwitchBot.Code
+using System.Collections.ObjectModel;
+
+public static class EventHistory
 {
-	public static class EventHistory
-	{
-		public static ObservableCollection<TwitchEvent> TwitchEvents { get; set; }
+	public static ObservableCollection<TwitchEvent> TwitchEvents { get; set; }
 
-		static EventHistory()
-		{
-			TwitchEvents = new ObservableCollection<TwitchEvent>();
-		}
+	static EventHistory()
+	{
+		TwitchEvents = new ObservableCollection<TwitchEvent>();
 	}
 }

@@ -1,7 +1,6 @@
-﻿namespace ArduinoTwitchBot.Code
+﻿namespace ArduinoTwitchBot.Code;
+
+public enum SignalType
 {
-	public enum SignalType
-	{
-		String = 0, Int, Byte
-	}
+	String = 0, Int, Byte
 }

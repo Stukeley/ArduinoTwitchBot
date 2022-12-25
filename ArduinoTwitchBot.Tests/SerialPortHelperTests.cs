@@ -1,19 +1,18 @@
-﻿using ArduinoTwitchBot.Code;
+﻿namespace ArduinoTwitchBot.Tests;
+
+using Code;
 using NUnit.Framework;
 
-namespace ArduinoTwitchBot.Tests
+[TestFixture]
+public class SerialPortHelperTests
 {
-	[TestFixture]
-	public class SerialPortHelperTests
+	[Test]
+	public void SendMessage_NoExceptionThrown()
 	{
-		[Test]
-		public void SendMessage_NoExceptionThrown()
-		{
-			string portName = "COM3";
-			string message = "Test Running";
-			SignalType signalType = SignalType.String;
+		string portName = "COM3";
+		string message = "Test Running";
+		SignalType signalType = SignalType.String;
 
-			Assert.DoesNotThrow(() => SerialPortHelper.SendMessage(portName, message, signalType));
-		}
+		Assert.DoesNotThrow(() => SerialPortHelper.SendMessage(portName, message, signalType));
 	}
 }
