@@ -58,6 +58,7 @@ public partial class EmotesPage : Page
 	{
 		var panel = GenerateChatMessagePanel();
 		ChatMessageEntriesPanel.Children.Add(panel);
+		ChatMessagesScrollViewer.UpdateLayout();
 	}
 
 	private StackPanel GenerateChatMessagePanel(string chatMessage = null, string signal = null, SignalType signalType = default)
@@ -109,7 +110,8 @@ public partial class EmotesPage : Page
 			Width = 24,
 			Height = 24,
 			Margin = new Thickness(20, 0, 0, 0),
-			Name = "ChatMessageDeleteEntryButton" + guid
+			Name = "ChatMessageDeleteEntryButton" + guid,
+			Padding = new Thickness(0)
 		};
 		chatMessageDeleteEntryButton.Click += ChatMessageDeleteEntryButton_OnClick;
 

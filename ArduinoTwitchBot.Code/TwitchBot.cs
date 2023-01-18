@@ -112,7 +112,7 @@ public class TwitchBot
 		if (Alerts[2])
 		{
 			// Bits alert.
-			PubSubClient.ListenToBitsEvents(channelId);
+			PubSubClient.ListenToBitsEventsV2(channelId);
 			PubSubClient.OnBitsReceived += Client_OnBitsReceived;
 		}
 
@@ -143,11 +143,6 @@ public class TwitchBot
 		{
 			// Raid alert.
 			ChatClient.OnRaidNotification += ChatClient_OnRaidNotification;
-		}
-		if (Alerts[4])
-		{
-			// Host alert.
-			ChatClient.OnBeingHosted += ChatClient_OnBeingHosted;
 		}
 		if (Alerts[5])
 		{
@@ -211,24 +206,6 @@ public class TwitchBot
 	}
 
 	#region Events
-
-	private void ChatClient_OnBeingHosted(object sender, TwitchLib.Client.Events.OnBeingHostedArgs e)
-	{
-#if DEBUG
-		Trace.WriteLine("Host received!");
-#endif
-		try
-		{
-			SerialPortHelper.SendMessage(PortName, Alerts[4].Signal, Alerts[4].SignalType);
-			EventHistory.TwitchEvents.Add(new TwitchEvent(e.BeingHostedNotification.HostedByChannel, DateTime.Now, TwitchEventType.Host));
-		}
-		catch (Exception ex)
-		{
-#if DEBUG
-			Trace.WriteLine(ex.Message);
-#endif
-		}
-	}
 
 	private void ChatClient_OnRaidNotification(object sender, TwitchLib.Client.Events.OnRaidNotificationArgs e)
 	{

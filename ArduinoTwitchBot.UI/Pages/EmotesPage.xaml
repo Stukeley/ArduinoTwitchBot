@@ -30,8 +30,8 @@
 					</Button.Content>
 				</Button>
 			
-				<ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden">
-					<StackPanel x:Name="ChatMessageEntriesPanel">
+				<ScrollViewer x:Name="ChatMessagesScrollViewer" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Hidden" Height="260" CanContentScroll="True">
+					<StackPanel x:Name="ChatMessageEntriesPanel" MinHeight="260">
 						<!-- Dynamically generated StackPanels representing different chat messages -->
 					</StackPanel>
 				</ScrollViewer>
