@@ -65,10 +65,6 @@ public static class SerialPortHelper
 				}
 			}
 		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
 		finally
 		{
 			port.Close();

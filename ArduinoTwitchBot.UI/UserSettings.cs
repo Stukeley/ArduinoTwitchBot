@@ -6,6 +6,7 @@ using System.Linq;
 
 namespace ArduinoTwitchBot.UI
 {
+	using System.Windows;
 	using Pages;
 
 	public static class UserSettings
@@ -62,9 +63,9 @@ namespace ArduinoTwitchBot.UI
 				// Save emotes list.
 				Properties.Settings.Default["ChatMessageEntries"] = ChatMessageEntry.Serialize(ChatMessageEntries);
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
-				throw;
+				MessageBox.Show($"{ex.Message}", "Error saving user data", MessageBoxButton.OK, MessageBoxImage.Error);
 			}
 			finally
 			{

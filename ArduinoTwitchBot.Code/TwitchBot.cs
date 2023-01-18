@@ -55,7 +55,7 @@ public class TwitchBot
 	// Client for listening to alerts (follows, subs, bits).
 	public TwitchPubSub PubSubClient { get; private set; }
 
-	// Client for listening to alerts (raids, hosts, emote events).
+	// Client for listening to alerts (raids, emote events).
 	public TwitchClient ChatClient { get; private set; }
 
 	// This method has to be called first, before connecting either of the clients.
@@ -127,7 +127,7 @@ public class TwitchBot
 	#endregion
 
 	#region ChatClient
-	// Connect the ClientChat (Host, Raid, Emote alerts).
+	// Connect the ClientChat (Raid, Emote alerts).
 	public void ConnectChatClient(List<ChatMessageEntry> entries = null, string botName = "ArduinoBot")
 	{
 		ChatMessageEntries = entries;
