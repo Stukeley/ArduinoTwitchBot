@@ -86,7 +86,7 @@ namespace ArduinoTwitchBot.UI
 				// Load alert settings.
 				Alerts = new Alert[6]
 				{
-					new Alert(bool.Parse(Properties.Settings.Default["FollowerAlert"].ToString()), Properties.Settings.Default["FollowerAlertValue"].ToString(), (SignalType)Enum.Parse(typeof(SignalType),Properties.Settings.Default["FollowerAlertType"].ToString())),
+					new Alert(bool.Parse(Properties.Settings.Default["FollowAlert"].ToString()), Properties.Settings.Default["FollowAlertValue"].ToString(), (SignalType)Enum.Parse(typeof(SignalType),Properties.Settings.Default["FollowAlertType"].ToString())),
 
 					new Alert(bool.Parse(Properties.Settings.Default["SubAlert"].ToString()), Properties.Settings.Default["SubAlertValue"].ToString(), (SignalType)Enum.Parse(typeof(SignalType),Properties.Settings.Default["SubAlertType"].ToString())),
 
